@@ -14,14 +14,11 @@ export default class ErrorNotFound extends Vue {
 
 
 <style lang="scss" scoped>
-@import url("../../style/base.scss");
-
 .error-wrapper {
-  height: torem(300px);
-  width: torem(300px);
+  height: 500px;
+  width: 600px; 
   margin: 0 auto;
   position: relative;
-  top: 50%;
-  margin-top: -150px;
+  top: 200px;
 }
 </style>

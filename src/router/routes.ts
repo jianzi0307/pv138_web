@@ -3,15 +3,23 @@ const routes: any[] = [
     path: '/',
     component: () => import('@/pages/home.vue'),
     children: [
-      // {
-      //   path: '/',
-      //   redirect: '/dash'
-      // },
+      {
+        path: '/',
+        // redirect: '/dash'
+        name: 'home',
+        component: () => import('@/pages/index.vue')
+      },
+      {
+        path: '/t',
+        name: 'compTest',
+        component: () => import('@/pages/single/test.vue')
+      },
       {
         path: '/comp/score',
         name: 'compScore',
         component: () => import('@/pages/single/compScore.vue')
-      }
+      },
+
     ]
   },
   // {
