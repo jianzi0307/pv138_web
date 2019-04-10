@@ -5,7 +5,7 @@ import router from '@/router';
 // import store from '@/store';
 import '@/filters';
 import '@/registerServiceWorker';
-import iView from 'iView';
+import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
 if (process.env.VUE_APP_MOCK_ENV === 'mock') {
