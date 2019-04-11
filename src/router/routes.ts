@@ -1,13 +1,13 @@
 const routes: any[] = [
   {
     path: '/',
-    component: () => import('@/pages/home.vue'),
+    component: () => import('@/pages/index.vue'),
     children: [
       {
         path: '/',
         // redirect: '/dash'
         name: 'home',
-        component: () => import('@/pages/index.vue')
+        component: () => import('@/pages/home.vue')
       },
       {
         path: '/t',
@@ -19,14 +19,40 @@ const routes: any[] = [
         name: 'compScore',
         component: () => import('@/pages/single/compScore.vue')
       },
-
     ]
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: () => import('@/components/login.vue')
-  // },
+  {
+    path: '/auth',
+    component: () => import('@/pages/index.vue'),
+    children: [
+      {
+        path: 'register',
+        name: 'auth.register',
+        component: () => import('@/pages/auth/register.vue')
+      },
+      {
+        path: 'login',
+        name: 'auth.login',
+        component: () => import('@/pages/auth/login.vue')
+      }
+    ]
+  },
+  {
+    path: '/product',
+    component: () => import('@/pages/index.vue'),
+    children: [
+      {
+        path: 'mass',
+        name: 'product.mass',
+        component: () => import('@/pages/product/mass.vue')
+      },
+      {
+        path: 'master',
+        name: 'product.master',
+        component: () => import('@/pages/product/master.vue')
+      }
+    ]
+  },
   {
     path: '/401',
     name: 'errorDenied',
