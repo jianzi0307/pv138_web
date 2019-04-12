@@ -142,8 +142,53 @@
       </div>
     </Row>
 
-    <Row>
-      <div class="container blockB">B</div>
+    <Row class="master-content">
+      <div class="container screen-1">
+        <div class="screen-title">多账号管理 轻松运营</div>
+        <div class="screen-sub-title">12w+公众号的选择</div>
+        <div class="screen-cards">
+          <Card class="card">
+            <div class="card-content">
+              <Icon class="icon" type="ios-chatbubbles-outline"/>
+              <h3>多个账号稳定登录切换，24小时二次登录免扫码</h3>
+            </div>
+          </Card>
+          <Card class="card">
+            <div class="card-content">
+              <Icon class="icon" type="ios-color-filter-outline"/>
+              <h3>基于后台而超越后台的数据分析和报表生成</h3>
+            </div>
+          </Card>
+          <Card class="card">
+            <div class="card-content">
+              <Icon class="icon" type="ios-color-palette-outline"/>
+              <h3>内置几百种样式，华丽图文轻松排版</h3>
+            </div>
+          </Card>
+          <Card class="card">
+            <div class="card-content">
+              <Icon class="icon" type="ios-cloud-done-outline"/>
+              <h3>小时级更新的海量文章素材库，监控特定公众号的发文</h3>
+            </div>
+          </Card>
+        </div>
+        <div class="screen-link">
+          <Button type="text" size="large">
+            帮您解决更多问题
+            <Icon type="md-arrow-forward"/>
+          </Button>
+        </div>
+      </div>
+    </Row>
+
+    <Row class="cases-content">
+      <div class="container screen-2">
+        <img src="@/assets/web/case1.png">
+        <img src="@/assets/web/case2.png">
+        <img src="@/assets/web/case3.png">
+        <img src="@/assets/web/case4.png">
+        <img src="@/assets/web/case5.png">
+      </div>
     </Row>
   </div>
 </template>
@@ -311,11 +356,78 @@ $carouselHeight: 420px;
       }
     }
   }
+}
 
-  //blockB
-  .blockB {
-    background-color: green;
-    height: 500px !important;
+.master-content {
+  height: $carouselHeight;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .screen-1 {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .screen-title {
+      font-size: 30px;
+      font-weight: 300;
+    }
+    .screen-sub-title {
+      font-size: 16px;
+      color: #657180;
+      font-weight: 300;
+    }
+    .screen-cards {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      .card {
+        width: 280px;
+        padding: 0 20px;
+        margin-left: 10px;
+        &:first-child {
+          margin-left: 0 !important;
+        }
+        .card-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            font-size: 70px;
+            color: #2db7f5;
+          }
+          h3 {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+    .screen-link {
+      margin-top: 20px;
+      /deep/ .ivu-btn {
+        font-size: 20px;
+        color: #2db7f5;
+      }
+    }
+  }
+}
+.cases-content {
+  margin-bottom: 100px;
+  height: 90px;
+  border-top: solid 1px #e8eaec;
+  border-bottom: solid 1px #e8eaec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .screen-2 {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 </style>
