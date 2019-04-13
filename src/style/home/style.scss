@@ -1,0 +1,215 @@
+$containerWidth: 1200px;
+.container {
+  width: $containerWidth;
+}
+.header {
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  /deep/ .ivu-menu {
+    position: static !important;
+  }
+
+  .nav {
+    width: $containerWidth;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .nav-menu {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      .layout-logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        img {
+          width: 120px;
+        }
+      }
+      .layout-nav {
+        margin-left: 30px;
+      }
+    }
+    .nav-opts {
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      .btn {
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+$carouselHeight: 420px;
+.banner-content {
+  margin-top: 80px;
+  height: $carouselHeight;
+  /* background-image: linear-gradient(167deg, #808695, #17233d); */
+  background-image: linear-gradient(45deg, #2db7f5, #2d8cf0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* banner */
+  .banner {
+    .carousel {
+      /*  height: 100%; */
+      position: relative;
+      overflow: hidden;
+      .carousel-item {
+        text-align: center;
+        color: white;
+        .carousel-body {
+          height: $carouselHeight;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          &-l {
+            display: flex !important;
+            flex-direction: column !important;
+            border: soild 1px green;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            .carousel-body-txt {
+              font-size: 35px;
+              .sub-txt {
+                font-size: 30px;
+                font-weight: 200;
+              }
+            }
+            .carousel-body-txt-sub {
+              margin-top: 15px;
+              font-size: 16px;
+              font-weight: 200;
+            }
+            .carousel-body-btn {
+              margin-top: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.notices-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f9;
+  /* notices */
+  .notices {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    &-title {
+      font-size: 13px;
+      font-style: bold;
+      margin-right: 20px;
+    }
+    .notice {
+      flex: 1;
+      a {
+        color: #657180;
+        margin-left: 2px;
+      }
+      a:hover {
+        color: #5cadff !important;
+      }
+    }
+  }
+}
+
+.master-content {
+  height: $carouselHeight;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .screen-1 {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .screen-title {
+      font-size: 30px;
+      font-weight: 300;
+    }
+    .screen-sub-title {
+      font-size: 16px;
+      color: #657180;
+      font-weight: 300;
+    }
+    .screen-cards {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+
+      .card {
+        background-image: linear-gradient(167deg, #808695, #515a6e) !important;
+        border-style: none;
+        color: white;
+        width: 280px;
+        padding: 0 20px;
+        margin-left: 10px;
+
+        &:first-child {
+          margin-left: 0 !important;
+        }
+        .card-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            font-size: 70px;
+            color: #2db7f5;
+          }
+          h3 {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+    .screen-link {
+      margin-top: 20px;
+      /deep/ .ivu-btn {
+        font-size: 20px;
+        color: #2db7f5;
+      }
+    }
+  }
+}
+.cases-content {
+  height: 90px;
+  border-top: solid 1px #e8eaec;
+  border-bottom: solid 1px #e8eaec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .screen-2 {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

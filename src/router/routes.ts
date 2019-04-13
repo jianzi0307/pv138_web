@@ -7,7 +7,7 @@ const routes: any[] = [
         path: '/',
         // redirect: '/dash'
         name: 'home',
-        component: () => import('@/pages/home.vue')
+        component: () => import('@/pages/home/home.vue')
       },
       {
         path: '/t',
