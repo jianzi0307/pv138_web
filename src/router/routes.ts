@@ -5,7 +5,6 @@ const routes: any[] = [
     children: [
       {
         path: '/',
-        // redirect: '/dash'
         name: 'home',
         component: () => import('@/pages/home/home.vue')
       },
@@ -23,17 +22,17 @@ const routes: any[] = [
   },
   {
     path: '/auth',
-    component: () => import('@/pages/index.vue'),
+    component: () => import('@/pages/auth/auth.vue'),
     children: [
       {
         path: 'register',
         name: 'auth.register',
-        component: () => import('@/pages/auth/register.vue')
+        component: () => import('@/pages/auth/register/register.vue')
       },
       {
         path: 'login',
         name: 'auth.login',
-        component: () => import('@/pages/auth/login.vue')
+        component: () => import('@/pages/auth/login/login.vue')
       }
     ]
   },

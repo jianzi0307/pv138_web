@@ -15,4 +15,4 @@ const router: Router = new Router({
 router.beforeEach((to: any, from: any, next: any) => {
     next();
 })
-export default router
+export default router;
