@@ -147,30 +147,30 @@
     <Row class="master-content">
       <div class="container screen-1">
         <div class="screen-title">多账号管理 轻松运营</div>
-        <div class="screen-sub-title">12w+公众号的选择</div>
+        <div class="screen-sub-title">每一个功能设计，都经过精心打磨，只为了提供更好的使用体验</div>
         <div class="screen-cards">
           <Card class="card">
             <div class="card-content">
               <Icon class="icon" type="ios-chatbubbles-outline"/>
-              <h3>多个账号稳定登录切换，24小时二次登录免扫码</h3>
+              <h3>支持多平台账号打通，全渠道客户集中管理。</h3>
             </div>
           </Card>
           <Card class="card">
             <div class="card-content">
               <Icon class="icon" type="ios-color-filter-outline"/>
-              <h3>基于后台而超越后台的数据分析和报表生成</h3>
+              <h3>多维度客户分析BI报表，提供精准营销依据。</h3>
             </div>
           </Card>
           <Card class="card">
             <div class="card-content">
               <Icon class="icon" type="ios-color-palette-outline"/>
-              <h3>内置几百种样式，华丽图文轻松排版</h3>
+              <h3>客户画像标签化，全方位了解你的客户。</h3>
             </div>
           </Card>
           <Card class="card">
             <div class="card-content">
               <Icon class="icon" type="ios-cloud-done-outline"/>
-              <h3>小时级更新的海量文章素材库，监控特定公众号的发文</h3>
+              <h3>多维度客户分析BI报表，提供精准营销依据。</h3>
             </div>
           </Card>
         </div>
@@ -195,22 +195,20 @@
 
     <Row class="mass-content">
       <div class="container screen-4">
-        <div class="screen-title">多账号管理 轻松运营</div>
-        <div class="screen-sub-title">12w+公众号的选择</div>
+        <div class="screen-title">消息群发 粉丝极速触达</div>
+        <div class="screen-sub-title">突破每月4条群发限制，客服消息随意发</div>
         <div class="mass-screen-cards">
           <div class="col">
             <Card class="bgcard card1">
               <div class="card-bg"></div>
               <div class="card-content">
-                <Icon class="icon" type="ios-chatbubbles-outline"/>
-                <h3>多个账号稳定登录切换，24小时二次登录免扫码</h3>
+                <h3>定时发送：您可预先编排推送任务，设置未来任意时间定时定向的群发，极速触达用户，提高推广效率，让运营更聪明。</h3>
               </div>
             </Card>
             <Card class="bgcard card2">
               <div class="card-bg"></div>
               <div class="card-content">
-                <Icon class="icon" type="ios-color-filter-outline"/>
-                <h3>基于后台而超越后台的数据分析和报表生成</h3>
+                <h3>辅助工具自动打标签功能和带参二维码，可以让您更高效该案例自己的用户，帮您更精准的定位用户。</h3>
               </div>
             </Card>
           </div>
@@ -218,15 +216,13 @@
             <Card class="bgcard card3">
               <div class="card-bg"></div>
               <div class="card-content">
-                <Icon class="icon" type="ios-color-palette-outline"/>
-                <h3>内置几百种样式，华丽图文轻松排版</h3>
+                <h3>定向发送：支持1对1发送、按粉丝标签群发、发送给所有粉丝。更精准触达，粉丝行为跟踪，让您更了解您的用户。</h3>
               </div>
             </Card>
             <Card class="bgcard card4">
               <div class="card-bg"></div>
               <div class="card-content">
-                <Icon class="icon" type="ios-cloud-done-outline"/>
-                <h3>小时级更新的海量文章素材库，监控特定公众号的发文</h3>
+                <h3>我们致力于提供一个安全可靠，简单高效的平台。来自互联网优秀的技术研发团队，打造安全稳定可用的系统。</h3>
               </div>
             </Card>
           </div>
@@ -242,7 +238,7 @@
     <Row class="footer-content">
       <div class="container screen-3">
         <div class="link-list">小程序代理 | 商务合作 | 用户协议 | 联系我们 | 加入我们 | 关于我们</div>
-        <div class="copyright">Copyright © 2018-2019 拼微客 www.pv138.com 山东万橡科技有限公司旗下 京ICP备1401925</div>
+        <div class="copyright">Copyright © 2018-2019 拼微客 京ICP备16004482号</div>
       </div>
     </Row>
     <BackTop :height="100" :bottom="200"></BackTop>

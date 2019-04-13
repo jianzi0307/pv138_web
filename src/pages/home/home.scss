@@ -232,7 +232,7 @@ $carouselHeight: 420px;
 
       .col {
         display: flex;
-        margin-left: 15px;
+        margin-left: 20px;
         &:first-child {
           margin-left: 0;
         }
@@ -240,7 +240,7 @@ $carouselHeight: 420px;
         div {
           height: 180px;
           &:nth-child(2) {
-            margin-top:15px;
+            margin-top:20px;
           }
           width: 460px;
         }
@@ -267,7 +267,14 @@ $carouselHeight: 420px;
           background-repeat: no-repeat;
           background-size: 210px;
           background-position-x: 110%;
-          opacity: 0.2;
+          opacity: 0.15;
+        }
+        .card-content {
+          width: 280px;
+          line-height: 28px;
+          font-size: 15px;
+          font-weight: 200px;
+          // text-indent: 2em;
         }
       }
     }
@@ -287,6 +294,7 @@ $carouselHeight: 420px;
     justify-content: center;
     align-items: center;
     div {
+      color:white;
       margin-top: 15px;
       font-size: 13px;
       &:first-child {
