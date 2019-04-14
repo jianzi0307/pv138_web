@@ -28,7 +28,7 @@
                 </Input>
               </FormItem>
               <FormItem prop="password">
-                <Input type="password" placeholder="设置密码" size="large">
+                <Input type="password" placeholder="输入6～32位密码" size="large">
                   <span slot="prepend" style="display:block;width: 97px">设置密码：</span>
                 </Input>
               </FormItem>

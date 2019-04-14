@@ -8,15 +8,15 @@
               <div style="margin-top:25px;">
                 <Form>
                   <FormItem prop="mobile">
-                    <Input type="text" placeholder="以后可以使用手机登录" size="large">
+                    <Input type="text" placeholder="请输入手机号" size="large">
                       <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                         <Option value="+86">中国大陆 +86</Option>
                       </Select>
                     </Input>
                   </FormItem>
                   <FormItem prop="password">
-                    <Input type="password" placeholder="设置密码" size="large">
-                      <span slot="prepend" style="display:block;width: 97px">设置密码：</span>
+                    <Input type="password" placeholder="输入6～32位密码" size="large">
+                      <span slot="prepend" style="display:block;width: 97px">登录密码：</span>
                     </Input>
                   </FormItem>
                   <FormItem>
@@ -35,7 +35,7 @@
               <div style="margin-top:25px;">
                 <Form>
                   <FormItem prop="mobile">
-                    <Input type="text" placeholder="以后可以使用手机登录" size="large">
+                    <Input type="text" placeholder="请输入手机号" size="large">
                       <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                         <Option value="+86">中国大陆 +86</Option>
                       </Select>
