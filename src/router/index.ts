@@ -1,18 +1,25 @@
+import { routes as auth } from '@/modules/auth';
+import { routes as web } from '@/modules/web';
 import Vue from 'vue'
 import Router from 'vue-router'
-// import store from '@/store'
-import routes from '@/router/routes'
+import beforeEach from './beforeEach';
 
-Vue.use(Router)
+Vue.use(Router);
+
+const AppRoute = {
+  path: '/',
+  component: () => import('../App.vue'),
+  children: [...auth, ...web]
+};
+
+const routes = [AppRoute];
+
 const router: Router = new Router({
-    routes,
-    mode: 'history',
-    base: process.env.BASE_URL,
-    scrollBehavior: (to: any, from: any, savedPosition: any) => {
-        return savedPosition || { x: 0, y: 0 }
-    }
-})
-router.beforeEach((to: any, from: any, next: any) => {
-    next();
-})
+  routes,
+  base: process.env.BASE_URL,
+  mode: 'history'
+});
+
+router.beforeEach(beforeEach);
+
 export default router;

@@ -1,4 +1,4 @@
-import Http from './http';
+import Http from './http_bak';
 
 class DataService {
   public static readonly instance: DataService = new DataService();

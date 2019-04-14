@@ -7,14 +7,14 @@
           <div style="margin-top:25px;">
             <Form>
               <FormItem prop="mobile">
-                <Input type="text" placeholder="以后可以使用手机登录" size="large">
+                <i-input type="text" placeholder="以后可以使用手机登录" size="large">
                   <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                     <Option value="+86">中国大陆 +86</Option>
                   </Select>
-                </Input>
+                </i-input>
               </FormItem>
               <FormItem prop="smsCode">
-                <Input type="text" placeholder="输入4位动态码" size="large">
+                <i-input type="text" placeholder="输入4位动态码" size="large">
                   <span slot="prepend" style="display:block;width: 97px">短信验证：</span>
                   <Button
                     type="primary"
@@ -25,12 +25,12 @@
                     <span v-if="!sendSmsCodeLoading">获取动态码</span>
                     <span v-else>发送中...</span>
                   </Button>
-                </Input>
+                </i-input>
               </FormItem>
               <FormItem prop="password">
-                <Input type="password" placeholder="输入6～32位密码" size="large">
+                <i-input type="password" placeholder="输入6～32位密码" size="large">
                   <span slot="prepend" style="display:block;width: 97px">设置密码：</span>
-                </Input>
+                </i-input>
               </FormItem>
               <FormItem>
                 <Button type="primary" shape="circle" size="large" long>注册</Button>
