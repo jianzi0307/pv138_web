@@ -27,7 +27,7 @@
                   <span>
                     <Checkbox v-model="rememberWeekend">七天内免登录</Checkbox>
                   </span>
-                  <span>忘记密码？</span>
+                  <router-link class="agreement" :to="{ name: 'auth.password.forget' }">忘记密码?</router-link>
                 </div>
               </div>
             </TabPane>
@@ -60,7 +60,9 @@
                     <Button type="primary" shape="circle" size="large" long>登录</Button>
                   </FormItem>
                 </Form>
-                <span><Checkbox v-model="rememberMobile">记住手机号</Checkbox></span>
+                <span>
+                  <Checkbox v-model="rememberMobile">记住手机号</Checkbox>
+                </span>
               </div>
             </TabPane>
           </Tabs>

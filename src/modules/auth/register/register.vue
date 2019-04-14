@@ -36,7 +36,7 @@
                 <Button type="primary" shape="circle" size="large" long>注册</Button>
               </FormItem>
             </Form>
-            <span>注册即表示同意《拼微客软件注册协议》</span>
+            <router-link class="agreement" :to="{ name: 'auth.agreement' }">注册即表示同意《拼微客软件注册协议》</router-link>
           </div>
         </div>
         <Divider type="vertical" style="height:300px;"/>
@@ -48,7 +48,9 @@
         <Divider>
           <p>快速登录</p>
         </Divider>
-        <div class="social-icons"><img src="@/assets/web/wechat.png" /></div>
+        <div class="social-icons">
+          <img src="@/assets/web/wechat.png">
+        </div>
       </div>
     </div>
   </div>
