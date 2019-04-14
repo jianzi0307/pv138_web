@@ -5,16 +5,16 @@
         <div class="box-left-container">
           <h1>新用户注册</h1>
           <div style="margin-top:25px;">
-            <Form>
+            <Form ref="registerForm" :model="formData">
               <FormItem prop="mobile">
-                <i-input type="text" placeholder="以后可以使用手机登录" size="large">
+                <i-input type="text" :model="formData.mobile" placeholder="以后可以使用手机登录" size="large">
                   <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                     <Option value="+86">中国大陆 +86</Option>
                   </Select>
                 </i-input>
               </FormItem>
               <FormItem prop="smsCode">
-                <i-input type="text" placeholder="输入4位动态码" size="large">
+                <i-input type="text" :model="formData.smsCode" placeholder="输入4位动态码" size="large">
                   <span slot="prepend" style="display:block;width: 97px">短信验证：</span>
                   <Button
                     type="primary"
@@ -28,12 +28,24 @@
                 </i-input>
               </FormItem>
               <FormItem prop="password">
-                <i-input type="password" placeholder="输入6～32位密码" size="large">
+                <i-input
+                  type="password"
+                  :model="formData.password"
+                  placeholder="输入6～32位密码"
+                  size="large"
+                >
                   <span slot="prepend" style="display:block;width: 97px">设置密码：</span>
                 </i-input>
               </FormItem>
               <FormItem>
-                <Button type="primary" shape="circle" size="large" long>注册</Button>
+                <Button
+                  type="primary"
+                  shape="circle"
+                  :disabled="!formReady"
+                  size="large"
+                  long
+                  @click="registerHandler('registerForm')"
+                >注册</Button>
               </FormItem>
             </Form>
             <router-link class="agreement" :to="{ name: 'auth.agreement' }">注册即表示同意《拼微客软件注册协议》</router-link>
