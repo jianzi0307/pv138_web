@@ -20,8 +20,8 @@ export const attemptLogin = (store: ActionContext<State, any>, payload: any) => 
 // 尝试注册
 export const attemptRegister = (store: ActionContext<State, any>, payload: any) => {
   services.postRegister(payload)
-    .then(({ token }: any) => {
-      store.dispatch('setToken', token);
+    .then((res: any) => {
+      store.dispatch('setToken', res.token);
       return Promise.resolve();
     })
     .then(() => store.dispatch('loadUser'));
@@ -29,16 +29,15 @@ export const attemptRegister = (store: ActionContext<State, any>, payload: any) 
 
 // 发送验证码
 export const sendSmsCode = (store: ActionContext<State, any>, payload: any) => {
-  console.log('wocao==========');
   services.postSendSmsCode(payload);
   Promise.resolve();
 };
 
 // 退出
-export const logout = ({ dispatch }: any) => {
+export const logout = (store: ActionContext<State, any>) => {
   return localforage.removeItem(userTokenStorageKey)
-    .then(dispatch('setToken', null))
-    .then(dispatch('setuser', {}));
+    .then(() => store.dispatch('setToken', null))
+    .then(() => store.dispatch('setuser', {}));
 };
 
 // 设置用户

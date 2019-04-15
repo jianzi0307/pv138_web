@@ -25,11 +25,9 @@ export default create({
   // 创建针对props属性的watch来同步组件外对props的修改
   watch: {
     payload(val) {
-      console.log(val);
       this.btnPayload = val;
     },
     status(currVal, old) {
-      console.log(currVal, old, "<<<<<");
       if (currVal === old) {
         return;
       }

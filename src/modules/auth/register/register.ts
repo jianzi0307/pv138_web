@@ -1,6 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { mapActions } from 'vuex';
-import store from '../store';
 import _ from 'lodash';
 
 import { isMobile, isPassword } from '@/utils/validator';
@@ -19,8 +18,9 @@ class Register extends Vue {
   protected cdButtonStatus: string = 'idle';
 
   protected formData: any = {
-    mobile: '',
-    smsCode: '',
+    account: '',
+    accountType: 'mobile',
+    secCode: '',
     password: ''
   };
 
@@ -41,10 +41,10 @@ class Register extends Vue {
   };
 
   protected formRules: any = {
-    mobile: [
+    account: [
       { validator: this.validateMobileRule, trigger: 'blur' }
     ],
-    smsCode: [
+    secCode: [
       { required: true, message: '请输入4位动态码', trigger: 'blur' },
       { type: 'string', min: 4, max: 4, message: '请输入4位动态码', trigger: 'blur' }
     ],
@@ -57,13 +57,13 @@ class Register extends Vue {
     const self: any = this;
     self.cdButtonStatus = 'loading';
     setTimeout(() => {
-      self.$refs['registerForm'].validateField('mobile', async (errmsg: any) => {
+      self.$refs['registerForm'].validateField('account', async (errmsg: any) => {
         if (errmsg) {
           self.cdButtonStatus = 'idle';
           return;
         }
         try {
-          await self.sendSmsCode(store, { mobile: self.formData.mobile, scene: 'register' });
+          await self.sendSmsCode({ mobile: self.formData.account, scene: 'register' });
         } catch (e) {
           if (e.status !== 422) {
             self.$Message.error('账号密码错误！');

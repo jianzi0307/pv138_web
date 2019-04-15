@@ -6,10 +6,10 @@
           <h1>新用户注册</h1>
           <div style="margin-top:25px;">
             <Form ref="registerForm" :model="formData" :rules="formRules" :show-message="true">
-              <FormItem prop="mobile">
+              <FormItem prop="account">
                 <i-input
                   type="text"
-                  v-model="formData.mobile"
+                  v-model="formData.account"
                   placeholder="以后可以使用手机登录"
                   size="large"
                 >
@@ -18,10 +18,10 @@
                   </Select>
                 </i-input>
               </FormItem>
-              <FormItem prop="smsCode" :show-message="true">
+              <FormItem prop="secCode">
                 <i-input
                   type="text"
-                  v-model="formData.smsCode"
+                  v-model="formData.secCode"
                   autocomplete="off"
                   placeholder="输入4位动态码"
                   size="large"
@@ -29,7 +29,7 @@
                   <span slot="prepend" style="display:block;width: 97px">短信验证：</span>
                   <pv138-cd-button
                     label="获取动态码"
-                    :payload="formData.mobile"
+                    :payload="formData.account"
                     :status="cdButtonStatus"
                     @cdButtonLoadingProcess="cdButtonLoadingProcessHandler"
                     @cdButtonCooldownFinish="cdButtonCooldownFinishHandler"
