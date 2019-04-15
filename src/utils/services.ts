@@ -18,6 +18,10 @@ export const postRegister = (payload: any) => {
   return http.post('/auth/register', payload)
 }
 
+export const postSendSmsCode = (payload: any) => {
+  return http.post('/c/sms', payload);
+};
+
 // get current user's data
 export const loadUserData = () => http.get('/me').catch((err: any) => console.log(err))
 

@@ -1,54 +1,67 @@
 import { userTokenStorageKey } from '@/config';
 
+import { ActionContext } from 'vuex';
+import { State } from './state';
 import localforage from 'localforage';
 import _ from 'lodash';
 import * as services from '@/utils/services'
 import * as TYPES from './mutations-types';
 
-export const attempLogin = ({ dispatch }: any, payload: any) => {
+// 尝试登录
+export const attemptLogin = (store: ActionContext<State, any>, payload: any) => {
   services.postLogin(payload)
     .then((data: any) => {
-      dispatch('setToken', data.token);
+      store.dispatch('setToken', data.token);
       return Promise.resolve();
     })
-    .then(() => dispatch('loadUser'));
+    .then(() => store.dispatch('loadUser'));
 };
 
-export const attempRegister = ({ dispatch }: any, payload: any) => {
+// 尝试注册
+export const attemptRegister = (store: ActionContext<State, any>, payload: any) => {
   services.postRegister(payload)
     .then(({ token }: any) => {
-      dispatch('setToken', token);
+      store.dispatch('setToken', token);
       return Promise.resolve();
     })
-    .then(() => dispatch('loadUser'));
+    .then(() => store.dispatch('loadUser'));
 };
 
+// 发送验证码
+export const sendSmsCode = (store: ActionContext<State, any>, payload: any) => {
+  console.log('wocao==========');
+  services.postSendSmsCode(payload);
+  Promise.resolve();
+};
+
+// 退出
 export const logout = ({ dispatch }: any) => {
   return localforage.removeItem(userTokenStorageKey)
     .then(dispatch('setToken', null))
     .then(dispatch('setuser', {}));
 };
 
-export const setUser = ({ commit }: any, user: any) => {
-  commit(TYPES.SET_USER, user);
+// 设置用户
+export const setUser = (store: ActionContext<State, any>, user: any) => {
+  store.commit(TYPES.SET_USER, user);
   Promise.resolve(user);
 };
 
-export const setToken = ({ commit }: any, payload: any) => {
+// 设置Token
+export const setToken = (store: ActionContext<State, any>, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
-  commit(TYPES.SET_TOKEN, token);
+  store.commit(TYPES.SET_TOKEN, token);
   return Promise.resolve(token);
 };
 
-export const checkUserToken = ({ dispatch, state }: any) => {
-  if (!_.isEmpty(state.token)) {
-    return Promise.resolve(state.token);
+// 检查用户
+export const checkUserToken = (store: ActionContext<State, any>) => {
+  if (!_.isEmpty(store.state.token)) {
+    return Promise.resolve(store.state.token);
   }
-  /**
-   * Token does not exist yet
-   * - Recover it from localstorage
-   * - Recover also the user, validating the token also
-   */
+  // token不存在
+  // - 从localstorage中取出，填充vuex的token
+  // - 同时也要同时获取user信息，填充vuex的user
   return (
     localforage
       .getItem(userTokenStorageKey)
@@ -56,18 +69,18 @@ export const checkUserToken = ({ dispatch, state }: any) => {
         if (_.isEmpty(token)) {
           return Promise.reject('NO_TOKEN');
         }
-        return dispatch('setToken', token);
+        return store.dispatch('setToken', token);
       })
-      .then(() => dispatch('loadUser'))
+      .then(() => store.dispatch('loadUser'))
   )
 };
 
 /**
- * Retrieves updated user information
- * If something goes wrong, the user's token is probably invalid
+ * 获取并更新用户信息
+ * 抛错则说明token是无效的，直接退出系统
  */
-export const loadUser = ({ dispatch }: any) => {
+export const loadUser = (store: ActionContext<State, any>) => {
   services.loadUserData()
-    .then((user) => dispatch('setUser', user))
+    .then((user) => store.dispatch('setUser', user))
     .catch(logout);
 };

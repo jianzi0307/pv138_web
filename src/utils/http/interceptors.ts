@@ -1,3 +1,4 @@
+import { Message } from 'iview'
 
 export default (http: any) => {
   http.interceptors.request.use(
@@ -23,20 +24,26 @@ export default (http: any) => {
           let content = '';
           Object.keys(data).map((key) => {
             const value = data[key];
-
             content = value[0]
           });
-          // message
+          Message.error(content);
+          return;
           break;
         case 403:
+          Message.error(error.response.data.message || '您没有此操作权限！')
+          return;
           break;
         case 401:
+          if (window.location.pathname !== '/auth/login') {
+            window.location.href = '/auth/login'
+          }
           break;
         case 500:
         case 501:
         case 503:
         default:
-          // message
+          Message.error('服务器开小差了，请稍后再试~！')
+          return;
           break;
       }
       return Promise.reject(error.response)

@@ -1,5 +1,6 @@
 import _ from 'lodash';
+import { State } from './state';
 
-export const isLogged = ({ token }: any) => !_.isEmpty(token);
-export const authToken = ({ token }: any) => token;
-export const currentUser = ({ user }: any) => user;
+export const isLogged = (state: State) => !_.isEmpty(state.token);
+export const authToken = (state: State) => state.token;
+export const currentUser = (state: State) => state.user;

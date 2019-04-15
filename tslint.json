@@ -105,6 +105,7 @@
     "no-sparse-arrays": true,
     // 禁止 throw 字符串，必须 throw 一个 Error 对象
     "no-string-throw": true,
+    "no-string-literal": false,
     // switch 的 case 必须 return 或 break
     "no-switch-case-fall-through": true,
     // 使用实例的方法时，必须 bind 到实例上
@@ -210,15 +211,11 @@
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false,
     "max-len": [
       0,
       300,
       4
     ],
-    "no-for-in-array": true,
-    // 禁止行尾有空格
-    "no-trailing-whitespace": false,
     "trailing-comma": true,
     "class-name": true,
     "variable-name": false
