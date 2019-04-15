@@ -19,6 +19,7 @@ export const postRegister = (payload: any) => {
 }
 
 export const postSendSmsCode = (payload: any) => {
+  console.log(payload, '<<<');
   return http.post('/c/sms', payload);
 };
 
