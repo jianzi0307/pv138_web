@@ -2,7 +2,7 @@ import axios from 'axios';
 import interceptors from './interceptors';
 
 const http = axios.create({
-    baseURL: process.env.VUE_APP_API_URL,
+    baseURL: process.env.VUE_APP_API_BASE_URL,
     timeout: 10000
 });
 
