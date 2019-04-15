@@ -4,14 +4,19 @@ import store from '../store';
 import _ from 'lodash';
 
 import { isMobile, isPassword } from '@/utils/validator';
+import { CdButton } from '@/components';
+
 @Component({
+  components: {
+    [CdButton.name]: CdButton
+  },
   methods: {
     ...mapActions(['attemptRegister', 'sendSmsCode'])
   }
 })
 class Register extends Vue {
   protected mobileContryCode: string = '+86';
-  protected sendSmsCodeLoading: boolean = false;
+  protected cdButtonStatus: string = 'idle';
 
   protected formData: any = {
     mobile: '',
@@ -48,27 +53,30 @@ class Register extends Vue {
     ]
   };
 
-  protected sendSmsHandler() {
+  protected cdButtonLoadingProcessHandler(evt: any) {
     const self: any = this;
-    self.$refs['registerForm'].validateField('mobile', async (errmsg: any) => {
-      if (!errmsg) {
-        self.sendSmsCodeLoading = true;
-        try {
-          debugger;
-          await self.sendSmsCode(store, { mobile: self.formData.mobile, scene: 'register' });
-          // await self.sendSmsCode({ mobile: self.formData.mobile, scene: 'register' });
-
-          self.$Message.success('发送成功');
-          self.sendSmsCodeLoading = false;
-        } catch (e) {
-          console.log(e);
-          // if (e.status !== 422) {
-          self.$Message.error('账号密码错误！');
-          self.sendSmsCodeLoading = false;
-          // }
+    self.cdButtonStatus = 'loading';
+    setTimeout(() => {
+      self.$refs['registerForm'].validateField('mobile', async (errmsg: any) => {
+        if (errmsg) {
+          self.cdButtonStatus = 'idle';
+          return;
         }
-      }
-    });
+        try {
+          await self.sendSmsCode(store, { mobile: self.formData.mobile, scene: 'register' });
+        } catch (e) {
+          if (e.status !== 422) {
+            self.$Message.error('账号密码错误！');
+          }
+        }
+        self.cdButtonStatus = 'cooldown';
+      });
+    }, 500);
+  }
+
+  protected cdButtonCooldownFinishHandler(evt: any) {
+    const self: any = this;
+    self.cdButtonStatus = 'idle';
   }
 
   protected gotoLoginHandler() {

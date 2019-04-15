@@ -1,4 +1,6 @@
-import { Message } from 'iview'
+// import { Message } from 'iview';
+import { Vue } from 'vue-property-decorator';
+
 
 export default (http: any) => {
   http.interceptors.request.use(
@@ -14,7 +16,6 @@ export default (http: any) => {
       return response.data;
     },
     (error: any) => {
-// tslint:disable-next-line: no-string-literal
       if (!error['response']) {
         return Promise.reject(error);
       }
@@ -24,29 +25,29 @@ export default (http: any) => {
           let content = '';
           Object.keys(data).map((key) => {
             const value = data[key];
-            content = value[0]
+            content = value[0];
           });
-          Message.error(content);
-          return;
+          Vue.prototype.$Message.error(content);
           break;
         case 403:
-          Message.error(error.response.data.message || '您没有此操作权限！')
-          return;
+          Vue.prototype.$Message.error(error.response.data.message || '您没有此操作权限！')
           break;
         case 401:
           if (window.location.pathname !== '/auth/login') {
             window.location.href = '/auth/login'
           }
           break;
+        case 404:
+          Vue.prototype.$Message.error('不存在的接口地址！')
+          break;
         case 500:
         case 501:
         case 503:
         default:
-          Message.error('服务器开小差了，请稍后再试~！')
-          return;
+          Vue.prototype.$Message.error('服务器开小差了，请稍后再试~！')
           break;
       }
-      return Promise.reject(error.response)
+      return Promise.reject(error.response);
     }
   )
 };

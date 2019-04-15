@@ -18,7 +18,7 @@
                   </Select>
                 </i-input>
               </FormItem>
-              <FormItem prop="smsCode">
+              <FormItem prop="smsCode" :show-message="true">
                 <i-input
                   type="text"
                   v-model="formData.smsCode"
@@ -27,15 +27,14 @@
                   size="large"
                 >
                   <span slot="prepend" style="display:block;width: 97px">短信验证：</span>
-                  <Button
-                    type="primary"
-                    :loading="sendSmsCodeLoading"
-                    @click="sendSmsHandler"
+                  <pv138-cd-button
+                    label="获取动态码"
+                    :payload="formData.mobile"
+                    :status="cdButtonStatus"
+                    @cdButtonLoadingProcess="cdButtonLoadingProcessHandler"
+                    @cdButtonCooldownFinish="cdButtonCooldownFinishHandler"
                     slot="append"
-                  >
-                    <span v-if="!sendSmsCodeLoading">获取动态码</span>
-                    <span v-else>发送中...</span>
-                  </Button>
+                  ></pv138-cd-button>
                 </i-input>
               </FormItem>
               <FormItem prop="password">
