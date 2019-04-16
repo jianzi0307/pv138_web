@@ -49,9 +49,9 @@ export const logout = (context: ActionContext<any, any>) => {
 };
 
 // 设置用户
-export const setUser = (context: ActionContext<any, any>, user: any) => {
-  context.commit(TYPES.SET_USER, user);
-  Promise.resolve(user);
+export const setUser = (context: ActionContext<any, any>, data: any) => {
+  context.commit(TYPES.SET_USER, data);
+  Promise.resolve(data);
 };
 
 // 设置Token
@@ -88,6 +88,9 @@ export const checkUserToken = (context: ActionContext<any, any>) => {
  */
 export const loadUser = (context: ActionContext<any, any>) => {
   services.loadUserData()
-    .then((user) => context.dispatch('setUser', user))
+    .then(({ data }: any) => {
+      console.log(data, '<<<<< 当前用户信息')
+      context.dispatch('setUser', data);
+    })
     .catch(logout);
 };
