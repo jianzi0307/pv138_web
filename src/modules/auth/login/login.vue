@@ -6,21 +6,36 @@
           <Tabs :animated="false" class="tabs">
             <TabPane label="登录">
               <div style="margin-top:25px;">
-                <Form>
-                  <FormItem prop="mobile">
-                    <i-input type="text" placeholder="请输入手机号" size="large">
+                <Form
+                  ref="loginForm"
+                  :model="loginFormData"
+                  :rules="loginFormRules"
+                  :show-message="true"
+                >
+                  <FormItem prop="account">
+                    <i-input
+                      type="text"
+                      v-model="loginFormData.account"
+                      placeholder="请输入手机号"
+                      size="large"
+                    >
                       <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                         <Option value="+86">中国大陆 +86</Option>
                       </Select>
                     </i-input>
                   </FormItem>
                   <FormItem prop="password">
-                    <i-input type="password" placeholder="输入6～32位密码" size="large">
+                    <i-input
+                      type="password"
+                      v-model="loginFormData.password"
+                      placeholder="输入6～32位密码"
+                      size="large"
+                    >
                       <span slot="prepend" style="display:block;width: 97px">登录密码：</span>
                     </i-input>
                   </FormItem>
                   <FormItem>
-                    <Button type="primary" shape="circle" size="large" long>登录</Button>
+                    <Button type="primary" shape="circle" size="large" long @click="loginHandler">登录</Button>
                   </FormItem>
                 </Form>
                 <div class="under-button-links">
@@ -33,31 +48,51 @@
             </TabPane>
             <TabPane label="手机动态码登录">
               <div style="margin-top:25px;">
-                <Form>
-                  <FormItem prop="mobile">
-                    <i-input type="text" placeholder="请输入手机号" size="large">
+                <Form
+                  ref="loginPhoneForm"
+                  :model="loginPhoneFormData"
+                  :rules="loginPhoneFormRules"
+                  :show-message="true"
+                >
+                  <FormItem prop="account">
+                    <i-input
+                      type="text"
+                      v-model="loginPhoneFormData.account"
+                      placeholder="请输入手机号"
+                      size="large"
+                    >
                       <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">
                         <Option value="+86">中国大陆 +86</Option>
                       </Select>
                     </i-input>
                   </FormItem>
-                  <FormItem prop="smsCode">
-                    <i-input type="text" placeholder="输入4位动态码" size="large">
+                  <FormItem prop="secCode">
+                    <i-input
+                      type="text"
+                      v-model="loginPhoneFormData.secCode"
+                      placeholder="输入4位动态码"
+                      size="large"
+                    >
                       <span slot="prepend" style="display:block;width: 97px">短信验证：</span>
-                      <Button
-                        type="primary"
-                        :loading="sendSmsCodeLoading"
-                        @click="toSendSmsHandler"
+                      <pv138-cd-button
+                        label="获取动态码"
+                        :payload="loginPhoneFormData.account"
+                        :status="cdButtonStatus"
+                        @cdButtonLoadingProcess="cdButtonLoadingProcessHandler"
+                        @cdButtonCooldownFinish="cdButtonCooldownFinishHandler"
                         slot="append"
-                      >
-                        <span v-if="!sendSmsCodeLoading">获取动态码</span>
-                        <span v-else>发送中...</span>
-                      </Button>
+                      ></pv138-cd-button>
                     </i-input>
                   </FormItem>
 
                   <FormItem>
-                    <Button type="primary" shape="circle" size="large" long>登录</Button>
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      size="large"
+                      long
+                      @click="loginPhoneHandler"
+                    >登录</Button>
                   </FormItem>
                 </Form>
                 <span>

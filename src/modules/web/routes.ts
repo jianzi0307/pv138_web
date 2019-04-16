@@ -17,6 +17,23 @@ export default [
         path: 'product/master',
         name: 'product.master',
         component: () => import('@/modules/web/product/master.vue')
+      },
+      {
+        path: 'dashboard',
+        component: () => import('@/modules/web/dashboard/dashboard.vue'),
+        meta: {
+          requiresAuth: true
+        },
+        children: [
+          {
+            path: '/',
+            name: 'dashboard.home',
+            component: () => import('@/modules/web/dashboard/home/home.vue'),
+            meta: {
+              requiresAuth: true
+            }
+          }
+        ]
       }
     ]
   },

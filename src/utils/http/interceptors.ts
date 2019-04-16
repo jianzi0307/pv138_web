@@ -17,7 +17,7 @@ export default (http: any) => {
     },
     (error: any) => {
       if (!error['response']) {
-        console.log(error);
+        console.log(error.code, error.message);
         Vue.prototype.$Message.error(error.message);
         return Promise.reject(error);
       }

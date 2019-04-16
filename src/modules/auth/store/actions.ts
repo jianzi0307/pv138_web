@@ -1,62 +1,70 @@
 import { userTokenStorageKey } from '@/config';
 
 import { ActionContext } from 'vuex';
-import { State } from './state';
 import localforage from 'localforage';
 import _ from 'lodash';
 import * as services from '@/utils/services'
 import * as TYPES from './mutations-types';
 
 // 尝试登录
-export const attemptLogin = (store: ActionContext<State, any>, payload: any) => {
-  services.postLogin(payload)
-    .then((data: any) => {
-      store.dispatch('setToken', data.token);
-      return Promise.resolve();
+export const attemptLogin = (context: ActionContext<any, any>, payload: any) => {
+  return services.postLogin(payload)
+    .then(({ data }) => {
+      console.log(data, '<<<<<登录成功');
+      context.dispatch('setToken', data);
     })
-    .then(() => store.dispatch('loadUser'));
+    .then(() => context.dispatch('loadUser'));
+};
+
+// 手机验证码登录
+export const attemptLoginPhone = (context: ActionContext<any, any>, payload: any) => {
+  return services.postLoginPhone(payload)
+    .then(({ data }) => {
+      console.log(data, '<<<<<登录成功');
+      context.dispatch('setToken', data);
+    })
+    .then(() => { context.dispatch('loadUser') });
 };
 
 // 尝试注册
-export const attemptRegister = (store: ActionContext<State, any>, payload: any) => {
-  services.postRegister(payload)
-    .then((res: any) => {
-      store.dispatch('setToken', res.token);
-      return Promise.resolve();
+export const attemptRegister = (context: ActionContext<any, any>, payload: any) => {
+  return services.postRegister(payload)
+    .then(({ data }) => {
+      console.log(data, '<<<<<注册成功');
+      context.dispatch('setToken', data);
     })
-    .then(() => store.dispatch('loadUser'));
+    .then(() => context.dispatch('loadUser'));
 };
 
 // 发送验证码
-export const sendSmsCode = (store: ActionContext<State, any>, payload: any) => {
-  services.postSendSmsCode(payload);
-  Promise.resolve();
+export const sendSmsCode = (context: ActionContext<any, any>, payload: any) => {
+  return services.postSendSmsCode(payload);
 };
 
 // 退出
-export const logout = (store: ActionContext<State, any>) => {
+export const logout = (context: ActionContext<any, any>) => {
   return localforage.removeItem(userTokenStorageKey)
-    .then(() => store.dispatch('setToken', null))
-    .then(() => store.dispatch('setuser', {}));
+    .then(() => context.dispatch('setToken', null))
+    .then(() => context.dispatch('setUser', {}));
 };
 
 // 设置用户
-export const setUser = (store: ActionContext<State, any>, user: any) => {
-  store.commit(TYPES.SET_USER, user);
+export const setUser = (context: ActionContext<any, any>, user: any) => {
+  context.commit(TYPES.SET_USER, user);
   Promise.resolve(user);
 };
 
 // 设置Token
-export const setToken = (store: ActionContext<State, any>, payload: any) => {
+export const setToken = (context: ActionContext<any, any>, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
-  store.commit(TYPES.SET_TOKEN, token);
+  context.commit(TYPES.SET_TOKEN, token);
   return Promise.resolve(token);
 };
 
 // 检查用户
-export const checkUserToken = (store: ActionContext<State, any>) => {
-  if (!_.isEmpty(store.state.token)) {
-    return Promise.resolve(store.state.token);
+export const checkUserToken = (context: ActionContext<any, any>) => {
+  if (!_.isEmpty(context.state.token)) {
+    return Promise.resolve(context.state.token);
   }
   // token不存在
   // - 从localstorage中取出，填充vuex的token
@@ -68,9 +76,9 @@ export const checkUserToken = (store: ActionContext<State, any>) => {
         if (_.isEmpty(token)) {
           return Promise.reject('NO_TOKEN');
         }
-        return store.dispatch('setToken', token);
+        return context.dispatch('setToken', token);
       })
-      .then(() => store.dispatch('loadUser'))
+      .then(() => context.dispatch('loadUser'))
   )
 };
 
@@ -78,8 +86,8 @@ export const checkUserToken = (store: ActionContext<State, any>) => {
  * 获取并更新用户信息
  * 抛错则说明token是无效的，直接退出系统
  */
-export const loadUser = (store: ActionContext<State, any>) => {
+export const loadUser = (context: ActionContext<any, any>) => {
   services.loadUserData()
-    .then((user) => store.dispatch('setUser', user))
+    .then((user) => context.dispatch('setUser', user))
     .catch(logout);
 };

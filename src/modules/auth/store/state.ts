@@ -1,4 +1,4 @@
-export class State {
-  public user: any = {}
-  public token: any = null
+export default {
+  user: {},
+  token: null
 }

@@ -2,7 +2,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { mapActions } from 'vuex';
 import _ from 'lodash';
 
-import { isMobile, isPassword } from '@/utils/validator';
+import { validateMobileRule, validateSmsCodeRule, validatePasswordRule } from '@/utils/validator';
 import { CdButton } from '@/components';
 
 @Component({
@@ -24,32 +24,15 @@ class Register extends Vue {
     password: ''
   };
 
-  protected validateMobileRule = (rule: any, value: any, callback: CallableFunction) => {
-    if (_.isEmpty(value) || !isMobile(value)) {
-      callback(new Error('请输入正确的手机号'));
-    } else {
-      callback();
-    }
-  };
-
-  protected validatePasswordRule = (rule: any, value: string, callback: CallableFunction) => {
-    if (_.isEmpty(value) || !isPassword(value)) {
-      callback(new Error('请输入6～32位密码'));
-    } else {
-      callback();
-    }
-  };
-
   protected formRules: any = {
     account: [
-      { validator: this.validateMobileRule, trigger: 'blur' }
+      { validator: validateMobileRule, trigger: 'blur' }
     ],
     secCode: [
-      { required: true, message: '请输入4位动态码', trigger: 'blur' },
-      { type: 'string', min: 4, max: 4, message: '请输入4位动态码', trigger: 'blur' }
+      { validator: validateSmsCodeRule, trigger: 'blur' }
     ],
     password: [
-      { validator: this.validatePasswordRule, trigger: 'blur' }
+      { validator: validatePasswordRule, trigger: 'blur' }
     ]
   };
 
@@ -65,9 +48,7 @@ class Register extends Vue {
         try {
           await self.sendSmsCode({ mobile: self.formData.account, scene: 'register' });
         } catch (e) {
-          if (e.status !== 422) {
-            self.$Message.error('账号密码错误！');
-          }
+          console.log(e.message || '发送失败');
         }
         self.cdButtonStatus = 'cooldown';
       });
@@ -75,8 +56,7 @@ class Register extends Vue {
   }
 
   protected cdButtonCooldownFinishHandler(evt: any) {
-    const self: any = this;
-    self.cdButtonStatus = 'idle';
+    this.cdButtonStatus = 'idle';
   }
 
   protected gotoLoginHandler() {
@@ -85,9 +65,15 @@ class Register extends Vue {
 
   protected registerHandler() {
     const self: any = this;
-    self.$refs['registerForm'].validate((valid: boolean) => {
+    self.$refs['registerForm'].validate(async (valid: boolean) => {
       if (valid) {
-        self.attemptRegister(self.formData);
+        try {
+          await self.attemptRegister(self.formData);
+          this.$Message.success('注册成功！');
+          this.$router.push({ name: 'dashboard.home' });
+        } catch (e) {
+          console.log(e.message || '注册失败');
+        }
       }
     });
   }

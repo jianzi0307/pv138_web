@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // 是否正确手机号
 export const isMobile = (mobile: string) => {
   return /^1[3456789]{1}\d{9}$/.test(mobile);
@@ -11,6 +13,33 @@ export const isSmsCode = (sms: string) => {
 // 简单验证
 export const isPassword = (pwd: string) => {
   return !(pwd.length < 6 || pwd.length > 32);
+};
+
+// 手机表单验证
+export const validateMobileRule = (rule: any, value: any, callback: CallableFunction) => {
+  if (_.isEmpty(value) || !isMobile(value)) {
+    callback(new Error('请输入正确的手机号'));
+  } else {
+    callback();
+  }
+};
+
+// 短信验证码格式检验
+export const validateSmsCodeRule = (rule: any, value: any, callback: CallableFunction) => {
+  if (_.isEmpty(value) || !isSmsCode(value)) {
+    callback(new Error('请输入4位动态码'));
+  } else {
+    callback();
+  }
+};
+
+// 密码表单验证
+export const validatePasswordRule = (rule: any, value: string, callback: CallableFunction) => {
+  if (_.isEmpty(value) || !isPassword(value)) {
+    callback(new Error('请输入6～32位密码'));
+  } else {
+    callback();
+  }
 };
 
 /**
