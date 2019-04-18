@@ -17,7 +17,7 @@ export const postLoginPhone = ({ account, accountType, secCode }: any) => {
     account,
     accountType,
     secCode
-  })
+  });
 };
 
 // 注册
@@ -29,6 +29,11 @@ export const postRegister = (payload: any) => {
 export const postSendSmsCode = (payload: any) => {
   console.log(payload, '<<<');
   return http.post('/c/sms', payload);
+};
+
+// 短信验证码验证
+export const smsVerify = (payload: any) => {
+  return http.get('/c/sms/verify', { params: payload });
 };
 
 // 获取当前用户信息

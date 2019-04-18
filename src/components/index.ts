@@ -1,7 +1,9 @@
 import CdButton from './cd-button/index.vue';
+import CdText from './cd-text/index.vue';
 const version = '0.1.0'
 const components = [
   CdButton,
+  CdText
 ]
 const install = (Vue: any) => {
   components.forEach((Component: any) => {
@@ -15,6 +17,7 @@ export {
   install,
   version,
   CdButton,
+  CdText
 }
 export default {
   install,

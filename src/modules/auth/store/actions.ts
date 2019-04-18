@@ -41,6 +41,15 @@ export const sendSmsCode = (context: ActionContext<any, any>, payload: any) => {
   return services.postSendSmsCode(payload);
 };
 
+// 短信验证码检查
+export const smsVerify = (context: ActionContext<any, any>, payload: any) => {
+  return services.smsVerify(payload);
+};
+
+// 找回密码
+// export const findPassword = (context: ActionContext<any, any>, payload: any) => {
+// };
+
 // 退出
 export const logout = (context: ActionContext<any, any>) => {
   return localforage.removeItem(userTokenStorageKey)
