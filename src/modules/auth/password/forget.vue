@@ -50,12 +50,24 @@
       <div class="content_1" v-if="currStep === 1">
         <Form ref="step1Form" :model="step1FormData" :rules="step1FormRules" :show-message="true">
           <FormItem prop="password">
-            <i-input type="password" placeholder="输入6～32位密码" autocomplete="off" size="large">
+            <i-input
+              type="password"
+              v-model="step1FormData.password"
+              placeholder="输入6～32位密码"
+              autocomplete="off"
+              size="large"
+            >
               <span slot="prepend" style="display:block;width: 97px">设置密码：</span>
             </i-input>
           </FormItem>
           <FormItem prop="passwordCheck">
-            <i-input type="password" placeholder="再次输入以确认密码" autocomplete="off" size="large">
+            <i-input
+              type="password"
+              v-model="step1FormData.passwordCheck"
+              placeholder="再次输入以确认密码"
+              autocomplete="off"
+              size="large"
+            >
               <span slot="prepend" style="display:block;width: 97px">确认密码：</span>
             </i-input>
           </FormItem>
@@ -69,7 +81,11 @@
           <Icon class="icon" type="md-checkmark-circle-outline"/>
           <span>
             找回密码成功，
-            <pv138-cd-text ref="cdText" :cd="3" @cdTextCooldownFinish="cdTextCooldownFinishHandler"></pv138-cd-text>后跳转
+            <pv138-cd-text
+              :actived="cdTextIsActived"
+              :cd="3"
+              @cdTextCooldownFinish="cdTextCooldownFinishHandler"
+            ></pv138-cd-text>后跳转
           </span>
         </div>
       </div>

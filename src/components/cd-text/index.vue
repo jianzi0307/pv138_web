@@ -1,5 +1,5 @@
 <template>
-  <span>{title}</span>
+  <span>{{title}}</span>
 </template>
 
 <script>
@@ -15,7 +15,8 @@ export default create({
     };
   },
   // 创建针对props属性的watch来同步组件外对props的修改
-  watch: {},
+  watch: {
+  },
   methods: {
     interval() {
       let self = this;
@@ -32,8 +33,6 @@ export default create({
     }
   },
   mounted() {
-  },
-  start() {
     this.interval();
   }
 });

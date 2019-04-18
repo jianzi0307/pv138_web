@@ -1,12 +1,13 @@
 import { Vue, Component } from 'vue-property-decorator';
-import { CdButton } from '@/components';
+import { CdButton, CdText } from '@/components';
 import { validateMobileRule, validatePasswordRule, validateSmsCodeRule } from '@/utils/validator';
 import { mapActions } from 'vuex';
 import _ from 'lodash';
 
 @Component({
   components: {
-    [CdButton.name]: CdButton
+    [CdButton.name]: CdButton,
+    [CdText.name]: CdText
   },
   methods: {
     ...mapActions(['sendSmsCode', 'smsVerify', 'findPassword'])
@@ -16,6 +17,7 @@ class ForgetPassword extends Vue {
   protected mobileContryCode: string = '+86';
   protected cdButtonStatus: string = 'idle';
   protected currStep: number = 0;
+  protected cdTextIsActived: boolean = false;
 
   protected step0FormData: any = {
     account: '',
@@ -35,11 +37,23 @@ class ForgetPassword extends Vue {
     password: '',
     passwordCheck: ''
   };
+
+  // 确认密码验证
+  protected validatePasswordCheckRule = (rule: any, value: string, callback: CallableFunction) => {
+    if (this.step1FormData.password !== value) {
+      callback(new Error('两次密码输入不一致'));
+    } else {
+      callback();
+    }
+  };
+
   protected step1FormRules: any = {
     password: [
       { validator: validatePasswordRule, trigger: 'blur' }
     ],
-    passwordCheck: []
+    passwordCheck: [
+      { validator: this.validatePasswordCheckRule, trigger: 'blur' }
+    ]
   };
 
   protected cdButtonLoadingProcessHandler(evt: any) {
@@ -93,13 +107,19 @@ class ForgetPassword extends Vue {
       self.$refs['step1Form'].validate(async (valid: boolean) => {
         if (valid) {
           try {
-            await self.findPassword(
-              self.step0FormData.account,
-              self.step0FormData.secCode,
-              self.step1FormData.password
-            );
+            const rs = await self.findPassword({
+              account: self.step0FormData.account,
+              accountType: 'mobile',
+              smsCode: self.step0FormData.secCode,
+              scene: 'findpwd',
+              password: self.step1FormData.password
+            });
+            if (!rs) {
+              self.$Message.error('重置密码失败');
+              return;
+            }
             self.showStep(step);
-            self.$refs['cdText'].start();
+            self.cdTextIsActived = true;
           } catch (e) {
             console.log(e.message || '重置密码失败');
           }

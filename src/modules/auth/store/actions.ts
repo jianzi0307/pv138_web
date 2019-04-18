@@ -47,8 +47,9 @@ export const smsVerify = (context: ActionContext<any, any>, payload: any) => {
 };
 
 // 找回密码
-// export const findPassword = (context: ActionContext<any, any>, payload: any) => {
-// };
+export const findPassword = (context: ActionContext<any, any>, payload: any) => {
+  return services.findPassword(payload);
+};
 
 // 退出
 export const logout = (context: ActionContext<any, any>) => {

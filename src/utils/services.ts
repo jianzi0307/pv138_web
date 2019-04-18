@@ -36,6 +36,11 @@ export const smsVerify = (payload: any) => {
   return http.get('/c/sms/verify', { params: payload });
 };
 
+// 找回密码
+export const findPassword = (payload: any) => {
+  return http.post('auth/password', payload);
+};
+
 // 获取当前用户信息
 export const loadUserData = () => http.get('/api/users/me').catch((err: any) => console.log(err))
 
