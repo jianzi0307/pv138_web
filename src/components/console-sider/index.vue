@@ -1,7 +1,7 @@
 <template>
   <Sider class="sider" hide-trigger>
     <!-- 加 accordion 开启手风琴模式 -->
-    <Menu active-name="0" theme="light" width="auto" >
+    <Menu active-name="0" theme="light" width="auto" @on-select="onMenuSelectedHandler">
       <MenuItem name="0">
         <Icon type="md-home"/>首页
       </MenuItem>
@@ -24,11 +24,12 @@ export default create({
     };
   },
   methods: {
-    createMenus(menus) {}
+    onMenuSelectedHandler(name) {
+      this.$emit('onMenuSelectedEvent', name);
+    }
   },
   mounted() {
     this.siderMenus = this.menus;
-    this.createMenus(this.siderMenus);
   }
 });
 </script>

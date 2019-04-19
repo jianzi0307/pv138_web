@@ -10,7 +10,7 @@
       <Layout class="layout-body">
         <Content>
           <Layout class="layout-content-container">
-            <pv138-console-sider :menus="siderMenus"></pv138-console-sider>
+            <pv138-console-sider :menus="siderMenus" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
             <Content :style="{padding: '24px'}">
               <router-view></router-view>
             </Content>
@@ -47,7 +47,7 @@ import { ConsoleHeader, ConsoleSider } from '@/components';
     ...mapActions(['logout'])
   }
 })
-class Dashboard extends Vue {
+class Console extends Vue {
   protected logo: any = require('@/assets/logo.svg');
   // 下拉菜单
   protected headerDropdownItems: any[] = [
@@ -74,7 +74,7 @@ class Dashboard extends Vue {
       id: '1',
       icon: 'ios-chatbubbles',
       label: '公众号列表',
-      route: 'console.officials'
+      route: 'console.official.list'
     },
     {
       id: '2',
@@ -84,7 +84,7 @@ class Dashboard extends Vue {
         {
           id: '2-1',
           label: '全部粉丝',
-          route: 'console.users'
+          route: 'console.user.list'
         }
       ]
     },
@@ -96,17 +96,17 @@ class Dashboard extends Vue {
         {
           id: '3-1',
           label: '高级群发',
-          route: 'console.users'
+          route: 'console.mass.advanced'
         },
         {
           id: '3-2',
           label: '客服群发',
-          route: 'console.users'
+          route: 'console.mass.custom'
         },
         {
           id: '3-3',
           label: '模板群发',
-          route: 'console.users'
+          route: 'console.mass.template'
         }
       ]
     },
@@ -117,18 +117,8 @@ class Dashboard extends Vue {
       children: [
         {
           id: '4-1',
-          label: '高级群发',
-          route: 'console.users'
-        },
-        {
-          id: '4-2',
-          label: '客服群发',
-          route: 'console.users'
-        },
-        {
-          id: '4-3',
-          label: '模板群发',
-          route: 'console.users'
+          label: '今日概况',
+          route: 'console.datacube.summary'
         }
       ]
     },
@@ -140,16 +130,29 @@ class Dashboard extends Vue {
         {
           id: '5-1',
           label: '子账号',
-          route: 'console.users'
+          route: 'console.setting.staff'
         },
         {
           id: '5-2',
           label: '角色管理',
-          route: 'console.users'
+          route: 'console.setting.role'
         }
       ]
     }
   ];
+
+  protected routeList = [];
+
+  protected created() {
+    console.log(this.routeList, '<<<<');
+    if (this.routeList.length > 0) {
+      return;
+    }
+    this.createRoutes(this.siderMenus, this.routeList);
+    // this.$router.addRoutes(this.routeList);
+    this.$router.addRoutes(this.routeList);
+    console.log(this.$router);
+  }
 
   protected async dropdownClickEventHandler(name: string) {
     const self: any = this;
@@ -166,8 +169,31 @@ class Dashboard extends Vue {
         break;
     }
   }
+
+  protected async onMenuSelectedHandler(name: string) {
+    const self: any = this;
+    self.$router.push({ name });
+  }
+
+  // 递归生成路由
+  protected createRoutes(items: any[], routes: any[]) {
+    const self: any = this;
+    for (const item of items) {
+      if (item.children && item.children.length > 0) {
+        self.createRoutes(item.children, routes);
+      } else {
+        const ar = item.route.split('.');
+        const path = ar.join('/');
+        routes.push({
+          name: item.route,
+          path: '/' + path,
+          component: () => import(`@/modules/web/${path}.vue`)
+        });
+      }
+    }
+  }
 }
 
-export default Dashboard;
+export default Console;
 </script>
 

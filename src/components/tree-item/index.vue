@@ -7,7 +7,7 @@
       </template>
       <TreeItem v-for="child in model.children" :key="child.id" :model="child"></TreeItem>
     </Submenu>
-    <MenuItem v-else :name="model.id">
+    <MenuItem v-else :name="model.route">
       <Icon v-if="model.icon" :type="model.icon"/>
       {{model.label}}
     </MenuItem>
