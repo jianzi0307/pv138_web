@@ -1,4 +1,33 @@
 class Util {
+  public static isFullScreen: boolean = false;
+
+  public static toggleFullScreen = () => {
+    Util.isFullScreen = !Util.isFullScreen;
+    if (Util.isFullScreen) {
+      const doc: any = document;
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen()
+      } else if (doc.webkitCancelFullScreen) {
+        doc.webkitCancelFullScreen()
+      } else if (doc.mozCancelFullScreen) {
+        doc.mozCancelFullScreen()
+      } else if (doc.msExitFullscreen) {
+        doc.msExitFullscreen()
+      }
+    } else {
+      const element: any = document.documentElement
+      if (element.requestFullscreen) {
+        element.requestFullscreen()
+      } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen()
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen()
+      } else if (element.msRequestFullscreen) {
+        // IE11
+        element.msRequestFullscreen()
+      }
+    }
+  }
 
   public static dateFileName = (fileName: string) => {
     const date = new Date()

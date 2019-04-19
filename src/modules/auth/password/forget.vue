@@ -76,13 +76,13 @@
           </FormItem>
         </Form>
       </div>
+      
       <div class="content_2" v-if="currStep === 2">
         <div class="success">
           <Icon class="icon" type="md-checkmark-circle-outline"/>
           <span>
             找回密码成功，
             <pv138-cd-text
-              :actived="cdTextIsActived"
               :cd="3"
               @cdTextCooldownFinish="cdTextCooldownFinishHandler"
             ></pv138-cd-text>后跳转

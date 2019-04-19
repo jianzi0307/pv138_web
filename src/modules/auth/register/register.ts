@@ -70,7 +70,7 @@ class Register extends Vue {
         try {
           await self.attemptRegister(self.formData);
           this.$Message.success('注册成功！');
-          this.$router.push({ name: 'dashboard.home' });
+          this.$router.push({ name: 'console.home' });
         } catch (e) {
           console.log(e.message || '注册失败');
         }

@@ -9,7 +9,7 @@ const beforeEach = (to: any, from: any, next: any) => {
     .dispatch('checkUserToken')
     .then(() => {
       if (store.getters.isLogged && to.path.indexOf('auth') > 0) {
-        return next({ name: 'dashboard.home' });
+        return next({ name: 'console.home' });
       }
       return next();
     })

@@ -1,4 +1,6 @@
 import Vue from 'vue';
+Vue.config.devtools = true;
+
 // import '@/utils/viewport.js';
 import App from '@/App.vue';
 import router from '@/router';
@@ -13,6 +15,7 @@ if (process.env.VUE_APP_MOCK_ENV === 'mock') {
 }
 
 Vue.config.productionTip = false;
+
 Vue.use(iView);
 
 new Vue({

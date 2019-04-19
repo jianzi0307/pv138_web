@@ -102,7 +102,7 @@ class Login extends Vue {
 
   protected loginSuccess() {
     this.$Message.success('登录成功！');
-    this.$router.push({ name: 'dashboard.home' });
+    this.$router.push({ name: 'console.home' });
   }
 }
 export default Login;

@@ -1,0 +1,74 @@
+.layout {
+  /deep/ .ivu-layout {
+    background: none;
+  }
+}
+.layout-header {
+  background-color: white;
+  height: 62px;
+  line-height: 62px;
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  z-index: 1000;
+  /deep/ .ivu-menu {
+    position: inherit;
+  }
+  .layout-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .layout-left {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .layout-logo {
+        width: 100px;
+        height: 30px;
+        float: left;
+        position: relative;
+        top: 10px;
+        left: 30px;
+      }
+    }
+
+    .layout-right {
+      display: flex;
+      flex-direction: row;
+      margin-right: 30px;
+      .layout-nav {
+        margin: 0 20px 0 0;
+      }
+    }
+  }
+}
+
+.layout-footer-center {
+  text-align: center;
+  background-color: #f5f7f9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.layout-body {
+  //   margin: 15px 0;
+  //   border: solid 1px red;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+}
+.layout-content-container {
+  //   background: #f5f7f9;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  /deep/ .ivu-layout-content {
+    background: #f5f7f9;
+  }
+}

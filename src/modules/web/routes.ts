@@ -19,16 +19,16 @@ export default [
         component: () => import('@/modules/web/product/master.vue')
       },
       {
-        path: 'dashboard',
-        component: () => import('@/modules/web/dashboard/dashboard.vue'),
+        path: 'console',
+        component: () => import('@/modules/web/console/console.vue'),
         meta: {
           requiresAuth: true
         },
         children: [
           {
             path: '/',
-            name: 'dashboard.home',
-            component: () => import('@/modules/web/dashboard/home/home.vue'),
+            name: 'console.home',
+            component: () => import('@/modules/web/console/home/home.vue'),
             meta: {
               requiresAuth: true
             }
