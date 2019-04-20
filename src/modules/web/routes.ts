@@ -20,6 +20,7 @@ export default [
       },
       {
         path: 'console',
+        name: 'comsole',
         component: () => import('@/modules/web/console/console.vue'),
         meta: {
           requiresAuth: true

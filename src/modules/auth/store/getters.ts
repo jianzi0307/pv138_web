@@ -4,3 +4,5 @@ import _ from 'lodash';
 export const isLogged = (state: any) => !_.isEmpty(state.token);
 export const authToken = (state: any) => state.token;
 export const currentUser = (state: any) => state.user;
+export const userPermission = (state: any) => state.permission;
+

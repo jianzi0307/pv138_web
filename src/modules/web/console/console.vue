@@ -34,6 +34,7 @@ body {
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { RouteConfig } from 'vue-router';
 import { mapActions } from 'vuex';
 import Util from '@/utils/util';
 import { ConsoleHeader, ConsoleSider } from '@/components';
@@ -143,15 +144,16 @@ class Console extends Vue {
 
   protected routeList = [];
 
-  protected created() {
-    console.log(this.routeList, '<<<<');
-    if (this.routeList.length > 0) {
-      return;
-    }
+  protected mounted() {
     this.createRoutes(this.siderMenus, this.routeList);
-    // this.$router.addRoutes(this.routeList);
-    this.$router.addRoutes(this.routeList);
+    console.log(this.$route.matched, '<<<');
+    const consoleRoutes: any[] = (this.$router as any).options.routes[0]
+      .children[1].children[3].children;
+    this.routeList.forEach((route) => {
+      consoleRoutes.push(route);
+    });
     console.log(this.$router);
+    // this.$router.addRoutes(this.routeList);
   }
 
   protected async dropdownClickEventHandler(name: string) {
@@ -172,7 +174,8 @@ class Console extends Vue {
 
   protected async onMenuSelectedHandler(name: string) {
     const self: any = this;
-    self.$router.push({ name });
+    // self.$router.push({ name });
+    console.log(self.$router);
   }
 
   // 递归生成路由

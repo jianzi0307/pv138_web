@@ -13,7 +13,8 @@ export const attemptLogin = (context: ActionContext<any, any>, payload: any) => 
       console.log(data, '<<<<<登录成功');
       context.dispatch('setToken', data);
     })
-    .then(() => context.dispatch('loadUser'));
+    .then(() => context.dispatch('loadUser'))
+    .then(() => context.dispatch('loadPermission'));
 };
 
 // 手机验证码登录
@@ -23,7 +24,8 @@ export const attemptLoginPhone = (context: ActionContext<any, any>, payload: any
       console.log(data, '<<<<<登录成功');
       context.dispatch('setToken', data);
     })
-    .then(() => { context.dispatch('loadUser') });
+    .then(() => { context.dispatch('loadUser') })
+    .then(() => context.dispatch('loadPermission'));
 };
 
 // 尝试注册
@@ -33,7 +35,8 @@ export const attemptRegister = (context: ActionContext<any, any>, payload: any) 
       console.log(data, '<<<<<注册成功');
       context.dispatch('setToken', data);
     })
-    .then(() => context.dispatch('loadUser'));
+    .then(() => context.dispatch('loadUser'))
+    .then(() => context.dispatch('loadPermission'));
 };
 
 // 发送验证码
@@ -64,6 +67,12 @@ export const setUser = (context: ActionContext<any, any>, data: any) => {
   Promise.resolve(data);
 };
 
+// 设置用户权限
+export const setPermission = (context: ActionContext<any, any>, data: any) => {
+  context.commit(TYPES.SET_USER_PERMISSION, data);
+  Promise.resolve(data);
+};
+
 // 设置Token
 export const setToken = (context: ActionContext<any, any>, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
@@ -89,6 +98,7 @@ export const checkUserToken = (context: ActionContext<any, any>) => {
         return context.dispatch('setToken', token);
       })
       .then(() => context.dispatch('loadUser'))
+      .then(() => context.dispatch('loadPermission'))
   )
 };
 
@@ -99,8 +109,17 @@ export const checkUserToken = (context: ActionContext<any, any>) => {
 export const loadUser = (context: ActionContext<any, any>) => {
   services.loadUserData()
     .then(({ data }: any) => {
-      console.log(data, '<<<<< 当前用户信息')
+      console.log(data, '<<<<< 当前用户信息');
       context.dispatch('setUser', data);
+    })
+    .catch(logout);
+};
+
+export const loadPermission = (context: ActionContext<any, any>) => {
+  services.loadUserPermission()
+    .then(({ data }: any) => {
+      console.log(data, '<<<<< 当前用户权限');
+      context.dispatch('setPermission', data);
     })
     .catch(logout);
 };

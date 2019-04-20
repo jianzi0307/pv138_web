@@ -5,7 +5,7 @@
       <MenuItem name="0">
         <Icon type="md-home"/>首页
       </MenuItem>
-      <TreeItem v-for="model in siderMenus" :key="model.label" :model="model"></TreeItem>
+      <tree-item v-for="model in siderMenus" :key="model.label" :model="model"></tree-item>
     </Menu>
   </Sider>
 </template>

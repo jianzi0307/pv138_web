@@ -42,7 +42,10 @@ export const findPassword = (payload: any) => {
 };
 
 // 获取当前用户信息
-export const loadUserData = () => http.get('/api/users/me').catch((err: any) => console.log(err))
+export const loadUserData = () => http.get('/api/users/me').catch((err: any) => console.log(err));
+
+// 获取当前用户权限列表
+export const loadUserPermission = () => http.get('/api/user/me/permission').catch((err: any) => console.log(err));
 
 // revoke current token
 // export const revokeToken = (token: string) => http.post('/oauth/tokens/' + token)
