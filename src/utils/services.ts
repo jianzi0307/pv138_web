@@ -45,7 +45,12 @@ export const findPassword = (payload: any) => {
 export const loadUserData = () => http.get('/api/users/me').catch((err: any) => console.log(err));
 
 // 获取当前用户权限列表
-export const loadUserPermission = () => http.get('/api/user/me/permission').catch((err: any) => console.log(err));
+// export const loadUserPermission = () => http.get('/api/user/me/permission').catch((err: any) => console.log(err));
+export const loadUserPermission = () => {
+  const per = require('@/assets/permission.json');
+  console.log(per);
+  return Promise.resolve(per);
+}
 
 // revoke current token
 // export const revokeToken = (token: string) => http.post('/oauth/tokens/' + token)

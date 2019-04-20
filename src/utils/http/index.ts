@@ -8,7 +8,7 @@ const http = axios.create({
 
 interceptors(http);
 
-export function setToken(token: string) {
+export function setHttpHeaderToken(token: string) {
     http.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 

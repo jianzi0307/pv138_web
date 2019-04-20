@@ -1,6 +1,56 @@
 class Util {
   public static isFullScreen: boolean = false;
 
+  // 递归生成拥有权限的路由
+  public static recursionRouter(userRouter = [], allRouter: any[] = []) {
+    const realRoutes: any[] = [];
+    allRouter.forEach((v: any, i) => {
+      userRouter.forEach((item: any, index) => {
+
+        if (item.name === v.meta.name) {
+          console.log('=====', item.name, v.meta.name);
+          if (item.children && item.children.length > 0) {
+            v.children = Util.recursionRouter(item.children, v.children);
+          }
+          v.meta.id = item.id || 0;
+          realRoutes.push(v);
+        }
+      })
+    });
+    return realRoutes;
+  }
+
+  // 递归为所有有子路由的路由设置第一个children.path为默认路由
+  public static setDefaultRoute(routes: any[]) {
+    routes.forEach((v, i) => {
+      if (v.children && v.children.length > 0) {
+        v.redirect = { name: v.children[0].name };
+        Util.setDefaultRoute(v.children);
+      }
+    });
+  }
+
+  // 通过路由生成菜单
+  public static createMenus(routes: any[]) {
+    const menus: any[] = [];
+    routes.forEach((v, i) => {
+      const menu: any = {};
+      if (v.children && v.children.length > 0) {
+        menu.children = Util.createMenus(v.children);
+      }
+      menu.id = v.meta.id;
+      if (v.meta.hasOwnProperty('icon')) {
+        menu.icon = v.meta.icon;
+      }
+      menu.label = v.meta.name;
+      menu.route = v.name;
+      menus.push(menu);
+
+    });
+    return menus;
+  }
+
+  // 全屏
   public static toggleFullScreen = () => {
     Util.isFullScreen = !Util.isFullScreen;
     if (Util.isFullScreen) {
@@ -29,6 +79,7 @@ class Util {
     }
   }
 
+  // 生产日期格式的文件名
   public static dateFileName = (fileName: string) => {
     const date = new Date()
     const Y = date.getFullYear()

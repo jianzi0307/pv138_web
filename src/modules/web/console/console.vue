@@ -144,18 +144,6 @@ class Console extends Vue {
 
   protected routeList = [];
 
-  protected mounted() {
-    this.createRoutes(this.siderMenus, this.routeList);
-    console.log(this.$route.matched, '<<<');
-    const consoleRoutes: any[] = (this.$router as any).options.routes[0]
-      .children[1].children[3].children;
-    this.routeList.forEach((route) => {
-      consoleRoutes.push(route);
-    });
-    console.log(this.$router);
-    // this.$router.addRoutes(this.routeList);
-  }
-
   protected async dropdownClickEventHandler(name: string) {
     const self: any = this;
     switch (name) {
@@ -166,8 +154,10 @@ class Console extends Vue {
         break;
       case 'exit':
         await self.logout();
-        self.$Message.success('成功退出');
-        self.$router.push({ name: 'auth.login' });
+        // self.$Message.success("成功退出");
+        // self.$router.replace({ name: "auth.login" });
+        // 防止切换角色时addRoutes重复添加路由导致出现警告
+        window.location.reload();
         break;
     }
   }
@@ -176,24 +166,6 @@ class Console extends Vue {
     const self: any = this;
     // self.$router.push({ name });
     console.log(self.$router);
-  }
-
-  // 递归生成路由
-  protected createRoutes(items: any[], routes: any[]) {
-    const self: any = this;
-    for (const item of items) {
-      if (item.children && item.children.length > 0) {
-        self.createRoutes(item.children, routes);
-      } else {
-        const ar = item.route.split('.');
-        const path = ar.join('/');
-        routes.push({
-          name: item.route,
-          path: '/' + path,
-          component: () => import(`@/modules/web/${path}.vue`)
-        });
-      }
-    }
   }
 }
 

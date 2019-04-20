@@ -7,36 +7,36 @@ import * as services from '@/utils/services'
 import * as TYPES from './mutations-types';
 
 // 尝试登录
-export const attemptLogin = (context: ActionContext<any, any>, payload: any) => {
+export const attemptLogin = ({ dispatch }: any, payload: any) => {
   return services.postLogin(payload)
     .then(({ data }) => {
       console.log(data, '<<<<<登录成功');
-      context.dispatch('setToken', data);
+      dispatch('setToken', data);
     })
-    .then(() => context.dispatch('loadUser'))
-    .then(() => context.dispatch('loadPermission'));
+    .then(() => dispatch('loadUser'))
+    .then(() => dispatch('loadPermission'))
 };
 
 // 手机验证码登录
-export const attemptLoginPhone = (context: ActionContext<any, any>, payload: any) => {
+export const attemptLoginPhone = ({ dispatch }: any, payload: any) => {
   return services.postLoginPhone(payload)
     .then(({ data }) => {
       console.log(data, '<<<<<登录成功');
-      context.dispatch('setToken', data);
+      dispatch('setToken', data);
     })
-    .then(() => { context.dispatch('loadUser') })
-    .then(() => context.dispatch('loadPermission'));
+    .then(() => { dispatch('loadUser') })
+    .then(() => dispatch('loadPermission'))
 };
 
 // 尝试注册
-export const attemptRegister = (context: ActionContext<any, any>, payload: any) => {
+export const attemptRegister = ({ dispatch }: any, payload: any) => {
   return services.postRegister(payload)
     .then(({ data }) => {
       console.log(data, '<<<<<注册成功');
-      context.dispatch('setToken', data);
+      dispatch('setToken', data);
     })
-    .then(() => context.dispatch('loadUser'))
-    .then(() => context.dispatch('loadPermission'));
+    .then(() => dispatch('loadUser'))
+    .then(() => dispatch('loadPermission'))
 };
 
 // 发送验证码
@@ -55,35 +55,31 @@ export const findPassword = (context: ActionContext<any, any>, payload: any) => 
 };
 
 // 退出
-export const logout = (context: ActionContext<any, any>) => {
+export const logout = ({ dispatch }: any) => {
   return localforage.removeItem(userTokenStorageKey)
-    .then(() => context.dispatch('setToken', null))
-    .then(() => context.dispatch('setUser', {}));
+    .then(() => dispatch('setToken', null))
+    .then(() => dispatch('setUser', {}))
+    .then(() => dispatch('setPermission', null))
+    .then(() => dispatch('setMenus', []))
 };
 
 // 设置用户
-export const setUser = (context: ActionContext<any, any>, data: any) => {
-  context.commit(TYPES.SET_USER, data);
-  Promise.resolve(data);
-};
-
-// 设置用户权限
-export const setPermission = (context: ActionContext<any, any>, data: any) => {
-  context.commit(TYPES.SET_USER_PERMISSION, data);
+export const setUser = ({ commit }: any, data: any) => {
+  commit(TYPES.SET_USER, data);
   Promise.resolve(data);
 };
 
 // 设置Token
-export const setToken = (context: ActionContext<any, any>, payload: any) => {
+export const setToken = ({ commit }: any, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
-  context.commit(TYPES.SET_TOKEN, token);
+  commit(TYPES.SET_TOKEN, token);
   return Promise.resolve(token);
 };
 
 // 检查用户
-export const checkUserToken = (context: ActionContext<any, any>) => {
-  if (!_.isEmpty(context.state.token)) {
-    return Promise.resolve(context.state.token);
+export const checkUserToken = ({ state, dispatch }: any) => {
+  if (!_.isEmpty(state.token)) {
+    return Promise.resolve(state.token);
   }
   // token不存在
   // - 从localstorage中取出，填充vuex的token
@@ -95,11 +91,11 @@ export const checkUserToken = (context: ActionContext<any, any>) => {
         if (_.isEmpty(token)) {
           return Promise.reject('NO_TOKEN');
         }
-        return context.dispatch('setToken', token);
+        return dispatch('setToken', token);
       })
-      .then(() => context.dispatch('loadUser'))
-      .then(() => context.dispatch('loadPermission'))
-  )
+      .then(() => dispatch('loadUser'))
+      .then(() => dispatch('loadPermission'))
+  );
 };
 
 /**
@@ -115,11 +111,3 @@ export const loadUser = (context: ActionContext<any, any>) => {
     .catch(logout);
 };
 
-export const loadPermission = (context: ActionContext<any, any>) => {
-  services.loadUserPermission()
-    .then(({ data }: any) => {
-      console.log(data, '<<<<< 当前用户权限');
-      context.dispatch('setPermission', data);
-    })
-    .catch(logout);
-};

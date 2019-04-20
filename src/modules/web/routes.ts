@@ -1,3 +1,4 @@
+// 初始路由
 export default [
   {
     path: '/',
@@ -17,24 +18,30 @@ export default [
         path: 'product/master',
         name: 'product.master',
         component: () => import('@/modules/web/product/master.vue')
-      },
+      }
+    ]
+  }
+];
+
+// 动态添加的路由
+export const DynamicRoutes = [
+  {
+    path: '/console/',
+    name: 'console',
+    component: () => import('@/modules/web/console/console.vue'),
+    meta: {
+      name: '首页',
+      requiresAuth: true
+    },
+    children: [
       {
-        path: 'console',
-        name: 'comsole',
-        component: () => import('@/modules/web/console/console.vue'),
+        path: '',
+        name: 'console.home',
+        component: () => import('@/modules/web/console/home/home.vue'),
         meta: {
+          name: '首页',
           requiresAuth: true
-        },
-        children: [
-          {
-            path: '/',
-            name: 'console.home',
-            component: () => import('@/modules/web/console/home/home.vue'),
-            meta: {
-              requiresAuth: true
-            }
-          }
-        ]
+        }
       }
     ]
   },

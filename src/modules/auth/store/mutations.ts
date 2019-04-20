@@ -11,8 +11,5 @@ export default {
   },
   [TYPES.SET_USER](state: any, value: any) {
     state.user = value;
-  },
-  [TYPES.SET_USER_PERMISSION](state: any, value: any) {
-    state.permission = value;
   }
 }

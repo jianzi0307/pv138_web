@@ -10,7 +10,7 @@ import { CdButton } from '@/components';
     [CdButton.name]: CdButton
   },
   methods: {
-    ...mapActions(['attemptRegister', 'sendSmsCode'])
+    ...mapActions( ['attemptRegister', 'sendSmsCode'])
   }
 })
 class Register extends Vue {
