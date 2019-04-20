@@ -1,6 +1,5 @@
 import Mock from 'mockjs';
 import login from './login';
-import permission from './permission';
 
 Mock.setup({
   timeout: '200-400' // 响应时间 200到400毫秒
@@ -17,4 +16,4 @@ function _mock(configs: any) {
 }
 
 _mock(login);
-_mock(permission);
+// _mock(permission);

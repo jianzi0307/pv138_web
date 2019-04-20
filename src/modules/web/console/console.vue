@@ -10,7 +10,7 @@
       <Layout class="layout-body">
         <Content>
           <Layout class="layout-content-container">
-            <pv138-console-sider :menus="siderMenus" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
+            <pv138-console-sider :menus="sidebarMenu" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
             <Content :style="{padding: '24px'}">
               <router-view></router-view>
             </Content>
@@ -38,11 +38,17 @@ import { RouteConfig } from 'vue-router';
 import { mapActions } from 'vuex';
 import Util from '@/utils/util';
 import { ConsoleHeader, ConsoleSider } from '@/components';
+import store from '@/store';
 
 @Component({
   components: {
     [ConsoleHeader.name]: ConsoleHeader,
     [ConsoleSider.name]: ConsoleSider
+  },
+  computed: {
+    sidebarMenu() {
+      return store.getters.getSiderMenus;
+    }
   },
   methods: {
     ...mapActions(['logout'])
@@ -69,80 +75,6 @@ class Console extends Vue {
   protected menuItems: any[] = [
     // { route: "console.officials", label: "使用帮助" },
   ];
-  // 侧边栏菜单
-  protected siderMenus: any[] = [
-    {
-      id: '1',
-      icon: 'ios-chatbubbles',
-      label: '公众号列表',
-      route: 'console.official.list'
-    },
-    {
-      id: '2',
-      icon: 'md-people',
-      label: '粉丝管理',
-      children: [
-        {
-          id: '2-1',
-          label: '全部粉丝',
-          route: 'console.user.list'
-        }
-      ]
-    },
-    {
-      id: '3',
-      icon: 'ios-paper-plane',
-      label: '消息群发',
-      children: [
-        {
-          id: '3-1',
-          label: '高级群发',
-          route: 'console.mass.advanced'
-        },
-        {
-          id: '3-2',
-          label: '客服群发',
-          route: 'console.mass.custom'
-        },
-        {
-          id: '3-3',
-          label: '模板群发',
-          route: 'console.mass.template'
-        }
-      ]
-    },
-    {
-      id: '4',
-      icon: 'md-stats',
-      label: '查看报表',
-      children: [
-        {
-          id: '4-1',
-          label: '今日概况',
-          route: 'console.datacube.summary'
-        }
-      ]
-    },
-    {
-      id: '5',
-      icon: 'md-hammer',
-      label: '权限设置',
-      children: [
-        {
-          id: '5-1',
-          label: '子账号',
-          route: 'console.setting.staff'
-        },
-        {
-          id: '5-2',
-          label: '角色管理',
-          route: 'console.setting.role'
-        }
-      ]
-    }
-  ];
-
-  protected routeList = [];
 
   protected async dropdownClickEventHandler(name: string) {
     const self: any = this;
@@ -164,8 +96,7 @@ class Console extends Vue {
 
   protected async onMenuSelectedHandler(name: string) {
     const self: any = this;
-    // self.$router.push({ name });
-    console.log(self.$router);
+    self.$router.push({ name });
   }
 }
 

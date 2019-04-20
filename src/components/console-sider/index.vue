@@ -2,10 +2,7 @@
   <Sider class="sider" hide-trigger>
     <!-- 加 accordion 开启手风琴模式 -->
     <Menu active-name="0" theme="light" width="auto" @on-select="onMenuSelectedHandler">
-      <MenuItem name="0">
-        <Icon type="md-home"/>首页
-      </MenuItem>
-      <tree-item v-for="model in siderMenus" :key="model.label" :model="model"></tree-item>
+      <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
     </Menu>
   </Sider>
 </template>
@@ -20,16 +17,23 @@ export default create({
   },
   data: function() {
     return {
-      siderMenus: []
+      // siderMenus: []
     };
   },
+  // watch: {
+  //   menus(curr, old) {
+  //     console.log("alskjflsajflj==>", curr);
+  //     this.siderMenus = curr;
+  //   }
+  // },
   methods: {
     onMenuSelectedHandler(name) {
-      this.$emit('onMenuSelectedEvent', name);
+      this.$emit("onMenuSelectedEvent", name);
     }
   },
   mounted() {
-    this.siderMenus = this.menus;
+    // this.siderMenus = this.menus;
+    console.log(this.menus, "啊是龙卷风拉萨江东父老");
   }
 });
 </script>

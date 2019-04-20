@@ -25,7 +25,7 @@ export const attemptLoginPhone = ({ dispatch }: any, payload: any) => {
       dispatch('setToken', data);
     })
     .then(() => { dispatch('loadUser') })
-    .then(() => dispatch('loadPermission'))
+    .then(() => { dispatch('loadPermission') })
 };
 
 // 尝试注册
@@ -108,6 +108,6 @@ export const loadUser = (context: ActionContext<any, any>) => {
       console.log(data, '<<<<< 当前用户信息');
       context.dispatch('setUser', data);
     })
-    .catch(logout);
+    .catch(() => { context.dispatch('logout') });
 };
 

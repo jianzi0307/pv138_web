@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Submenu :name="model.id" v-if="hasChildren">
+    <Submenu :name="itemModel.id" v-if="hasChildren">
       <template slot="title">
-        <Icon :type="model.icon"/>
-        {{model.label}}
+        <Icon :type="itemModel.icon"/>
+        {{itemModel.label}}
       </template>
-      <tree-item v-for="child in model.children" :key="child.id" :model="child"></tree-item>
+      <tree-item v-for="child in itemModel.children" :key="child.id" :model="child"></tree-item>
     </Submenu>
-    <MenuItem v-else :name="model.route">
-      <Icon v-if="model.icon" :type="model.icon"/>
-      {{model.label}}
+    <MenuItem v-else :name="itemModel.route">
+      <Icon v-if="itemModel.icon" :type="itemModel.icon"/>
+      {{itemModel.label}}
     </MenuItem>
   </div>
 </template>
@@ -27,8 +27,17 @@ export default {
   },
   data: function() {
     return {
+      itemModel: {},
       open: true
     };
+  },
+  watch: {
+    model(curr, old) {
+      this.itemModel = curr;
+    }
+  },
+  mounted() {
+    this.itemModel = this.model;
   }
 };
 </script>

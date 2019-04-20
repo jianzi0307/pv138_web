@@ -40,6 +40,7 @@ export const DynamicRoutes = [
         component: () => import('@/modules/web/console/home/home.vue'),
         meta: {
           name: '首页',
+          icon: 'md-home',
           requiresAuth: true
         }
       }

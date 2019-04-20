@@ -68,12 +68,12 @@ export default {
             dispatch('setPermission', [...initialRoutes, ...DynamicRoutes]);
             Promise.resolve();
           })
-          .catch(dispatch('logout'));
+          .catch(() => dispatch('logout'));
       }
     },
     getters: {
-      hasPermission(state: any) { return !_.isEmpty(state.permissionList) },
-      userPermission(state: any) { return state.permissionList; }
+      hasPermission(state: any) { return !_.isEmpty(state.permissionList); },
+      getSiderMenus(state: any) { return state.sidebarMenu; }
     }
   }
 };
