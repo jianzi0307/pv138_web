@@ -38,37 +38,33 @@ export default {
         Promise.resolve(data);
       },
       // 请求用户权限
-      loadPermission({ dispatch }: any) {
-        services.loadUserPermission()
-          .then(({ data }: any) => {
-            console.log(data, '<<<<< 当前用户权限');
-            console.log(dynamicRouter, '<<<< 动态路由');
-            // 根据权限过滤用户路由
-            const routes = Util.recursionRouter(data, dynamicRouter);
+      async loadPermission({ dispatch }: any) {
+        const permissionList = await services.loadUserPermission();
+        console.log(permissionList.data, '<<<<< 当前用户权限');
+        console.log(dynamicRouter, '<<<< 动态路由');
+        // 根据权限过滤用户路由
+        const routes = Util.recursionRouter(permissionList.data, dynamicRouter);
 
-            console.log('routes==>', routes);
+        console.log('routes==>', routes);
 
-            // 合并路由
-            const consoleRootRoute: any = DynamicRoutes.find((v: any) => v.name === 'console');
-            const children = consoleRootRoute.children;
-            children.push(...routes);
+        // 合并路由
+        const consoleRootRoute: any = DynamicRoutes.find((v: any) => v.name === 'console');
+        const children = consoleRootRoute.children;
+        children.push(...routes);
 
-            // 生成侧边栏导航菜单
-            console.log(children, '<<<<<< children');
-            dispatch('setMenus', Util.createMenus(children));
-            Util.setDefaultRoute([consoleRootRoute]);
+        // 生成侧边栏导航菜单
+        console.log(children, '<<<<<< children');
+        dispatch('setMenus', Util.createMenus(children));
+        Util.setDefaultRoute([consoleRootRoute]);
 
-            // 初始路由
-            const initialRoutes = defaultRoutes;
+        // 初始路由
+        const initialRoutes = defaultRoutes;
 
-            // 动态添加路由
-            router.addRoutes(DynamicRoutes);
+        // 动态添加路由
+        router.addRoutes(DynamicRoutes);
 
-            // 最终完整路由表
-            dispatch('setPermission', [...initialRoutes, ...DynamicRoutes]);
-            Promise.resolve();
-          })
-          .catch(() => dispatch('logout'));
+        // 最终完整路由表
+        dispatch('setPermission', [...initialRoutes, ...DynamicRoutes]);
       }
     },
     getters: {

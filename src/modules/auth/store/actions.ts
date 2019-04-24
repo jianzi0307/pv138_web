@@ -5,6 +5,7 @@ import localforage from 'localforage';
 import _ from 'lodash';
 import * as services from '@/utils/services'
 import * as TYPES from './mutations-types';
+import { setHttpHeaderToken } from '@/utils/http';
 
 // 尝试登录
 export const attemptLogin = ({ dispatch }: any, payload: any) => {
@@ -73,29 +74,8 @@ export const setUser = ({ commit }: any, data: any) => {
 export const setToken = ({ commit }: any, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
   commit(TYPES.SET_TOKEN, token);
+  setHttpHeaderToken(token);
   return Promise.resolve(token);
-};
-
-// 检查用户
-export const checkUserToken = ({ state, dispatch }: any) => {
-  if (!_.isEmpty(state.token)) {
-    return Promise.resolve(state.token);
-  }
-  // token不存在
-  // - 从localstorage中取出，填充vuex的token
-  // - 同时也要同时获取user信息，填充vuex的user
-  return (
-    localforage
-      .getItem(userTokenStorageKey)
-      .then((token) => {
-        if (_.isEmpty(token)) {
-          return Promise.reject('NO_TOKEN');
-        }
-        return dispatch('setToken', token);
-      })
-      .then(() => dispatch('loadUser'))
-      .then(() => dispatch('loadPermission'))
-  );
 };
 
 /**

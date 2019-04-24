@@ -19,7 +19,7 @@ const store: any = new Vuex.Store({
     web: WebStore.module
   },
   plugins: [
-    AuthStore.plugin
+    // AuthStore.plugin
   ]
 })
 

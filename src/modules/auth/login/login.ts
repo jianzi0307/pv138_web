@@ -47,28 +47,22 @@ class Login extends Vue {
 
   protected loginHandler() {
     const self: any = this;
-    self.$refs['loginForm'].validate(async (valid: boolean) => {
+    self.$refs['loginForm'].validate((valid: boolean) => {
       if (valid) {
-        try {
-          await self.attemptLogin(self.loginFormData);
-          self.loginSuccess();
-        } catch (e) {
-          console.log(e.message || '登录失败');
-        }
+        self.attemptLogin(self.loginFormData)
+          .then(() => self.loginSuccess())
+          .catch((e: any) => console.log(e.message || '登录失败'))
       }
     });
   }
 
   protected loginPhoneHandler() {
     const self: any = this;
-    self.$refs['loginPhoneForm'].validate(async (valid: boolean) => {
+    self.$refs['loginPhoneForm'].validate((valid: boolean) => {
       if (valid) {
-        try {
-          await self.attemptLoginPhone(self.loginPhoneFormData);
-          self.loginSuccess();
-        } catch (e) {
-          console.log(e.message || '登录失败');
-        }
+        self.attemptLoginPhone(self.loginPhoneFormData)
+          .then(() => self.loginSuccess())
+          .catch((e: any) => console.log(e.message || '登录失败'));
       }
     });
   }

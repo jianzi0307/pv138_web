@@ -26,7 +26,7 @@ export default [
 // 动态添加的路由
 export const DynamicRoutes = [
   {
-    path: '/console/',
+    path: '/console',
     name: 'console',
     component: () => import('@/modules/web/console/console.vue'),
     meta: {
@@ -35,7 +35,7 @@ export const DynamicRoutes = [
     },
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'console.home',
         component: () => import('@/modules/web/console/home/home.vue'),
         meta: {
