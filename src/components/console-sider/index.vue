@@ -1,7 +1,7 @@
 <template>
   <Sider class="sider" hide-trigger>
     <!-- 加 accordion 开启手风琴模式 -->
-    <Menu active-name="0" theme="light" width="auto" @on-select="onMenuSelectedHandler">
+    <Menu :active-name="currentMenu" theme="light" width="auto" @on-select="onMenuSelectedHandler">
       <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
     </Menu>
   </Sider>
@@ -9,11 +9,18 @@
 <script>
 import { create } from "@/utils/comp-creater";
 import TreeItem from "@/components/tree-item/index.vue";
+import store from "@/store";
+
 export default create({
   name: "console-sider",
   props: ["menus"],
   components: {
     TreeItem
+  },
+  computed: {
+    currentMenu() {
+      return store.getters.getCurrentMenu;
+    }
   },
   data: function() {
     return {
@@ -33,7 +40,6 @@ export default create({
   },
   mounted() {
     // this.siderMenus = this.menus;
-    console.log(this.menus, "啊是龙卷风拉萨江东父老");
   }
 });
 </script>

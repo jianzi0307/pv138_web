@@ -3,6 +3,7 @@ import { routes as web } from '@/modules/web';
 import Vue from 'vue'
 import Router from 'vue-router'
 import beforeEach from './beforeEach';
+import afterEach from './afterEach';
 
 Vue.use(Router);
 
@@ -21,5 +22,6 @@ const router: Router = new Router({
 });
 
 router.beforeEach(beforeEach);
+router.afterEach(afterEach);
 
 export default router;

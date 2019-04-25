@@ -22,6 +22,9 @@ export default {
       },
       SET_SIDER_MENUS(state: any, menu: any) {
         state.sidebarMenu = menu
+      },
+      SET_CURRENT_MENU(state: any, currMenu: any) {
+        state.currentMenu = currMenu;
       }
     },
     actions: {
@@ -69,7 +72,8 @@ export default {
     },
     getters: {
       hasPermission(state: any) { return !_.isEmpty(state.permissionList); },
-      getSiderMenus(state: any) { return state.sidebarMenu; }
+      getSiderMenus(state: any) { return state.sidebarMenu; },
+      getCurrentMenu(state: any) { return state.currentMenu }
     }
   }
 };
