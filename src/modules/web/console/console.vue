@@ -12,7 +12,14 @@
           <Layout class="layout-content-container">
             <pv138-console-sider :menus="sidebarMenu" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
             <Content :style="{padding: '24px'}">
-              <router-view></router-view>
+              <Breadcrumb>
+                <BreadcrumbItem
+                  v-for="route in crumbList"
+                  :key="route.name"
+                  :to="{name:route.name}"
+                >{{route.meta.name}}</BreadcrumbItem>
+              </Breadcrumb>
+               <div class="page-content"><router-view></router-view></div>
             </Content>
           </Layout>
         </Content>
@@ -48,6 +55,11 @@ import store from '@/store';
   computed: {
     sidebarMenu() {
       return store.getters.getSiderMenus;
+    },
+    crumbList() {
+      return store.getters.getCrumbList.filter((route: any) => {
+        return route.name !== 'console.home';
+      });
     }
   },
   methods: {

@@ -13,7 +13,9 @@ export default {
       // 侧边栏菜单
       sidebarMenu: [],
       // 当前选中的导航栏
-      currentMenu: ''
+      currentMenu: '',
+      // 面包屑
+      crumbList: []
     },
     mutations: {
       SET_USER_PERMISSION(state: any, routes: any) {
@@ -25,14 +27,26 @@ export default {
       },
       SET_CURRENT_MENU(state: any, currMenu: any) {
         state.currentMenu = currMenu;
+      },
+      SET_CRUMB_LIST(state: any, list: any) {
+        state.crumbList = list;
       }
     },
     actions: {
       // 设置侧边栏菜单
       setMenus({ commit }: any, data: any) {
         commit('SET_SIDER_MENUS', data);
-        console.log('菜单：', data);
         Promise.resolve(data);
+      },
+      // 设置当前菜单 
+      setCurrentMenu({ commit }: any, currMenu: any) {
+        commit('SET_CURRENT_MENU', currMenu);
+        Promise.resolve(currMenu);
+      },
+      // 设置面包屑
+      setCrumbList({ commit }: any, list: any) {
+        commit('SET_CRUMB_LIST', list);
+        Promise.resolve(list);
       },
       // 设置用户权限
       setPermission({ commit }: any, data: any) {
@@ -73,7 +87,8 @@ export default {
     getters: {
       hasPermission(state: any) { return !_.isEmpty(state.permissionList); },
       getSiderMenus(state: any) { return state.sidebarMenu; },
-      getCurrentMenu(state: any) { return state.currentMenu }
+      getCurrentMenu(state: any) { return state.currentMenu },
+      getCrumbList(state: any) { return state.crumbList }
     }
   }
 };
