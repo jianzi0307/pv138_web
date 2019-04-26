@@ -15,7 +15,6 @@
 <script>
 import { create } from "@/utils/comp-creater";
 import TreeItem from "@/components/tree-item/index.vue";
-import Util from "@/utils/util";
 import store from "@/store";
 
 export default create({
@@ -28,8 +27,15 @@ export default create({
     currentMenu() {
       return store.getters.getCurrentMenu;
     },
+    // 父路由列表
     parentRoutes() {
-      return Util.getParentRoutes(store.getters.getCurrentMenu);
+      const routes = [];
+      for (let route of this.$route.matched) {
+        if (route.name !== store.getters.getCurrentMenu) {
+          routes.push(route.name);
+        }
+      }
+      return routes;
     }
   },
   data: function() {
