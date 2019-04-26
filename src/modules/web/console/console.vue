@@ -12,7 +12,7 @@
           <Layout class="layout-content-container">
             <pv138-console-sider :menus="sidebarMenu" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
             <Content :style="{padding: '24px'}">
-              <Breadcrumb>
+              <Breadcrumb class="breadcrumb">
                 <BreadcrumbItem
                   v-for="route in crumbList"
                   :key="route.name"
