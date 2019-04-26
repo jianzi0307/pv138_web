@@ -5,14 +5,14 @@ const afterEach = (to: any, from: any) => {
     // store.commit('setCrumbList', routerList);
 
     // 通过to.name查找菜单的ID
-    let currMenuId = 0;
+   /* let currMenuId = 0;
     for (const v of store.state.web.sidebarMenu) {
         if (v.route === to.name) {
             currMenuId = to.meta.id;
             break;
         }
-    }
-    store.commit('SET_CURRENT_MENU', currMenuId);
+    }*/
+    store.commit('SET_CURRENT_MENU', to.name);
 };
 
 export default afterEach;

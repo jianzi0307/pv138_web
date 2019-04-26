@@ -1,7 +1,7 @@
 <template>
   <Sider class="sider" hide-trigger>
     <!-- 加 accordion 开启手风琴模式 -->
-    <Menu :active-name="currentMenu" theme="light" width="auto" @on-select="onMenuSelectedHandler">
+    <Menu :active-name="currentMenu" :open-names="['console.user']" theme="light" width="auto" @on-select="onMenuSelectedHandler">
       <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
     </Menu>
   </Sider>

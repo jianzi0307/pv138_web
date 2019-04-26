@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Submenu :name="itemModel.id" v-if="hasChildren">
+    <Submenu :name="model.route" v-if="hasChildren">
       <template slot="title">
-        <Icon :type="itemModel.icon"/>
-        {{itemModel.label}}
+        <Icon :type="model.icon"/>
+        {{model.label}}
       </template>
-      <tree-item v-for="child in itemModel.children" :key="child.id" :model="child"></tree-item>
+      <tree-item v-for="child in model.children" :key="child.id" :model="child"></tree-item>
     </Submenu>
-    <MenuItem v-else :name="itemModel.route">
-      <Icon v-if="itemModel.icon" :type="itemModel.icon"/>
-      {{itemModel.label}}
+    <MenuItem v-else :name="model.route">
+      <Icon v-if="model.icon" :type="model.icon"/>
+      {{model.label}}
     </MenuItem>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 // 菜单递归组件
 export default {
-  name: "TreeItem",
+  name: "tree-item",
   props: ["model"],
   components: {},
   computed: {
@@ -27,17 +27,17 @@ export default {
   },
   data: function() {
     return {
-      itemModel: {},
+      // model: {},
       open: true
     };
   },
   watch: {
     model(curr, old) {
-      this.itemModel = curr;
+      // this.model = curr;
     }
   },
   mounted() {
-    this.itemModel = this.model;
+    // this.model = this.model;
   }
 };
 </script>
