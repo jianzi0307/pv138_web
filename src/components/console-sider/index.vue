@@ -1,7 +1,13 @@
 <template>
   <Sider class="sider" hide-trigger>
     <!-- 加 accordion 开启手风琴模式 -->
-    <Menu :active-name="currentMenu" :open-names="['console.user']" theme="light" width="auto" @on-select="onMenuSelectedHandler">
+    <Menu
+      :active-name="currentMenu"
+      :open-names="parentRoutes"
+      theme="light"
+      width="auto"
+      @on-select="onMenuSelectedHandler"
+    >
       <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
     </Menu>
   </Sider>
@@ -9,6 +15,7 @@
 <script>
 import { create } from "@/utils/comp-creater";
 import TreeItem from "@/components/tree-item/index.vue";
+import Util from "@/utils/util";
 import store from "@/store";
 
 export default create({
@@ -20,6 +27,9 @@ export default create({
   computed: {
     currentMenu() {
       return store.getters.getCurrentMenu;
+    },
+    parentRoutes() {
+      return Util.getParentRoutes(store.getters.getCurrentMenu);
     }
   },
   data: function() {

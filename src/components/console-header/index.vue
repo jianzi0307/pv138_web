@@ -70,7 +70,7 @@ export default create({
   box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
   padding: 0;
   z-index: 1000;
-  /deep/ .ivu-menu {
+  >>> .ivu-menu {
     position: inherit;
   }
   .layout-menu {

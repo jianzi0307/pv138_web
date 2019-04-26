@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class Util {
   public static isFullScreen: boolean = false;
 
@@ -48,6 +50,25 @@ class Util {
 
     });
     return menus;
+  }
+
+
+  /**
+   * 获取所有父路由：a, a.b, a.b.c, a.b.c.d
+   * @param routeName 例如：a.b.c.d
+   */
+  public static getParentRoutes(routeName: string) {
+    const ary = routeName.split('.');
+    const res = [];
+    let r = '';
+    for (const v of ary) {
+      r += `${v}.`;
+      const route = _.trimEnd(r, '.');
+      if (routeName !== v) {
+        res.push(route);
+      }
+    }
+    return res;
   }
 
   // 全屏
