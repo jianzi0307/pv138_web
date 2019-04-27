@@ -42,6 +42,15 @@ const dynamicRoutes = [
     },
     children: [
       {
+        path: 'ai',
+        name: 'console.mass.ai',
+        component: () => import('@/modules/web/console/mass/ai.vue'),
+        meta: {
+          name: '智能推送',
+          requiresAuth: true
+        }
+      },
+      {
         path: 'advanced',
         name: 'console.mass.advanced',
         component: () => import('@/modules/web/console/mass/advanced.vue'),
@@ -55,7 +64,7 @@ const dynamicRoutes = [
         name: 'console.mass.custom',
         component: () => import('@/modules/web/console/mass/custom.vue'),
         meta: {
-          name: '客服群发',
+          name: '客服消息',
           requiresAuth: true
         }
       },
