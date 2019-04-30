@@ -1,6 +1,4 @@
 class Util {
-  public static isFullScreen: boolean = false;
-
   // 递归生成拥有权限的路由
   public static recursionRouter(userRouter = [], allRouter: any[] = []) {
     const realRoutes: any[] = [];
@@ -45,38 +43,8 @@ class Util {
       menu.label = v.meta.name;
       menu.route = v.name;
       menus.push(menu);
-
     });
     return menus;
-  }
-
-  // 全屏
-  public static toggleFullScreen = () => {
-    Util.isFullScreen = !Util.isFullScreen;
-    if (Util.isFullScreen) {
-      const doc: any = document;
-      if (doc.exitFullscreen) {
-        doc.exitFullscreen()
-      } else if (doc.webkitCancelFullScreen) {
-        doc.webkitCancelFullScreen()
-      } else if (doc.mozCancelFullScreen) {
-        doc.mozCancelFullScreen()
-      } else if (doc.msExitFullscreen) {
-        doc.msExitFullscreen()
-      }
-    } else {
-      const element: any = document.documentElement
-      if (element.requestFullscreen) {
-        element.requestFullscreen()
-      } else if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen()
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen()
-      } else if (element.msRequestFullscreen) {
-        // IE11
-        element.msRequestFullscreen()
-      }
-    }
   }
 
   // 生产日期格式的文件名

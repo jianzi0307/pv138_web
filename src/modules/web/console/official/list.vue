@@ -68,7 +68,45 @@ export default class OfficialList extends Vue {
     },
     {
       title: '公众号',
-      key: 'name'
+      key: 'name',
+      width: 200,
+      render: (h: any, params: any) => {
+        return h('div', { style: { display: 'flex', alignItems: 'center' } }, [
+          h('div', [
+            h('Avatar', {
+              props: {
+                shape: 'square',
+                src: 'https://open.weixin.qq.com/qr/code?username=pv138com'
+              }
+            })
+          ]),
+          h(
+            'div',
+            {
+              style: {
+                marginLeft: '5px',
+                display: 'flex',
+                flexDirection: 'column'
+              }
+            },
+            [
+              h(
+                'span',
+                {
+                  style: {
+                    width: '150px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  }
+                },
+                params.row.name
+              ),
+              h('span', { style: { color: '#c5c8ce' } }, 'pv138com')
+            ]
+          )
+        ]);
+      }
     },
     {
       title: '账号类型',
@@ -92,7 +130,43 @@ export default class OfficialList extends Vue {
     },
     {
       title: '操作',
-      key: 'ops'
+      key: 'ops',
+      fixed: 'right',
+      width: 220,
+      render: (h: any, params: any) => {
+        return h('div', [
+          h(
+            'Button',
+            {
+              props: {
+                type: 'text',
+                size: 'small'
+              }
+            },
+            '新建素材'
+          ),
+          h(
+            'Button',
+            {
+              props: {
+                type: 'text',
+                size: 'small'
+              }
+            },
+            '自定义菜单'
+          ),
+          h(
+            'Button',
+            {
+              props: {
+                type: 'text',
+                size: 'small'
+              }
+            },
+            '删除'
+          )
+        ]);
+      }
     }
   ];
   protected tableData = [

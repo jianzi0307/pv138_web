@@ -93,9 +93,6 @@ class Console extends Vue {
   protected async dropdownClickEventHandler(name: string) {
     const self: any = this;
     switch (name) {
-      case 'fullscreen':
-        Util.toggleFullScreen();
-        break;
       case 'profile':
         break;
       case 'exit':

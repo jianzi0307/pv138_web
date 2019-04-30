@@ -5,6 +5,12 @@
         <div class="layout-logo">
           <img :src="logo">
         </div>
+        <sider-trigger
+          class="sider-trigger"
+          :collapsed="collapsed"
+          icon="md-menu"
+          @on-change="collpasedChangeHandler"
+        ></sider-trigger>
       </div>
       <div class="layout-right">
         <Menu class="layout-nav" mode="horizontal" @on-select="onMenuSelectedHandler">
@@ -38,10 +44,12 @@
 </template>
 <script>
 import { create } from "@/utils/comp-creater";
+import SiderTrigger from "@/components/sider-trigger/index.vue";
 import Fullscreen from "@/components/fullscreen/index.vue";
 export default create({
   name: "console-header",
   components: {
+    SiderTrigger,
     Fullscreen
   },
   props: ["logo", "dropdowns", "menus"],
@@ -49,7 +57,8 @@ export default create({
     return {
       dropdownItems: [],
       menuItems: [],
-      isFullscreen: false
+      isFullscreen: false,
+      collapsed: false
     };
   },
   methods: {
@@ -58,6 +67,9 @@ export default create({
     },
     onMenuSelectedHandler(name) {
       this.$router.push({ name: name });
+    },
+    collpasedChangeHandler(state) {
+      this.$emit("on-coll-change", state);
     }
   },
   mounted() {
@@ -108,6 +120,10 @@ export default create({
           color: #808695;
         }
       }
+    }
+
+    .sider-trigger {
+      margin-left: 40px;
     }
   }
 }
