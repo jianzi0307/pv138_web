@@ -19,7 +19,9 @@
                   :to="{name:route.name}"
                 >{{route.meta.name}}</BreadcrumbItem>
               </Breadcrumb>
-               <div class="page-content"><router-view></router-view></div>
+              <div class="page-content">
+                <router-view></router-view>
+              </div>
             </Content>
           </Layout>
         </Content>
@@ -71,7 +73,7 @@ class Console extends Vue {
   // 下拉菜单
   protected headerDropdownItems: any[] = [
     {
-      divided: true,
+      divided: false,
       icon: 'md-contact',
       label: '账号信息',
       name: 'profile'

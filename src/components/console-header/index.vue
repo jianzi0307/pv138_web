@@ -7,6 +7,7 @@
         </div>
       </div>
       <div class="layout-right">
+        <fullscreen v-model="isFullscreen"></fullscreen>
         <Menu class="layout-nav" mode="horizontal" @on-select="onMenuSelectedHandler">
           <MenuItem
             v-for="menuItem in menuItems"
@@ -19,9 +20,6 @@
             <Icon type="md-menu" style="font-size: 25px;"/>
           </a>
           <DropdownMenu slot="list">
-            <DropdownItem name="fullscreen">
-              <Icon type="md-expand" class="dropdown-icon"/>全屏
-            </DropdownItem>
             <DropdownItem
               v-for="item in dropdownItems"
               :key="item.name"
@@ -39,13 +37,18 @@
 </template>
 <script>
 import { create } from "@/utils/comp-creater";
+import  Fullscreen  from "@/components/fullscreen/index.vue";
 export default create({
   name: "console-header",
+  components: {
+    Fullscreen
+  },
   props: ["logo", "dropdowns", "menus"],
   data: function() {
     return {
       dropdownItems: [],
-      menuItems: []
+      menuItems: [],
+      isFullscreen: false
     };
   },
   methods: {
@@ -70,7 +73,7 @@ export default create({
   box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
   padding: 0;
   z-index: 1000;
-  >>> .ivu-menu {
+  /deep/ .ivu-menu {
     position: inherit;
   }
   .layout-menu {
