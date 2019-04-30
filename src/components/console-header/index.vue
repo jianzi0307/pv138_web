@@ -7,7 +7,6 @@
         </div>
       </div>
       <div class="layout-right">
-        <fullscreen v-model="isFullscreen"></fullscreen>
         <Menu class="layout-nav" mode="horizontal" @on-select="onMenuSelectedHandler">
           <MenuItem
             v-for="menuItem in menuItems"
@@ -15,9 +14,11 @@
             name="menuItem.route"
           >{{menuItem.label}}</MenuItem>
         </Menu>
-        <Dropdown placement="bottom-end" @on-click="dropdownClickHandler">
+        <fullscreen v-model="isFullscreen"></fullscreen>
+        <Dropdown class="layout-setting" placement="bottom" @on-click="dropdownClickHandler">
           <a href="javascript:void(0)">
-            <Icon type="md-menu" style="font-size: 25px;"/>
+            <Avatar icon="ios-person"/>
+            <Icon :size="18" type="md-arrow-dropdown"></Icon>
           </a>
           <DropdownMenu slot="list">
             <DropdownItem
@@ -37,7 +38,7 @@
 </template>
 <script>
 import { create } from "@/utils/comp-creater";
-import  Fullscreen  from "@/components/fullscreen/index.vue";
+import Fullscreen from "@/components/fullscreen/index.vue";
 export default create({
   name: "console-header",
   components: {
@@ -97,9 +98,15 @@ export default create({
     .layout-right {
       display: flex;
       flex-direction: row;
-      margin-right: 30px;
+      margin-right: 40px;
       .layout-nav {
-        margin: 0 20px 0 0;
+        margin-right: 20px;
+      }
+      .layout-setting {
+        margin-left: 20px;
+        a {
+          color: #808695;
+        }
       }
     }
   }

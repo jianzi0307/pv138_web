@@ -81,8 +81,8 @@ export default {
 
 <style lang="scss">
 .full-screen-btn-con .ivu-tooltip-rel {
-  height: 64px;
-  line-height: 56px;
+  font-size: 25px;
+  color: #808695;
   i {
     cursor: pointer;
   }
