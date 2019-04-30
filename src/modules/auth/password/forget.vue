@@ -14,7 +14,7 @@
             <i-input
               type="text"
               v-model="step0FormData.account"
-              placeholder="以后可以使用手机登录"
+              placeholder="请输入注册时的手机号"
               size="large"
             >
               <Select slot="prepend" v-model="mobileContryCode" style="width: 110px">

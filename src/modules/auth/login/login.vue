@@ -35,7 +35,17 @@
                     </i-input>
                   </FormItem>
                   <FormItem>
-                    <Button type="primary" shape="circle" size="large" long @click="loginHandler">登录</Button>
+                    <Button
+                      type="primary"
+                      :loading="loginLoading"
+                      shape="circle"
+                      size="large"
+                      long
+                      @click="loginHandler"
+                    >
+                      <span v-if="!loginLoading">登录</span>
+                      <span v-else>登录中...</span>
+                    </Button>
                   </FormItem>
                 </Form>
                 <div class="under-button-links">
@@ -87,12 +97,16 @@
 
                   <FormItem>
                     <Button
+                      :loading="loginPhoneLoading"
                       type="primary"
                       shape="circle"
                       size="large"
                       long
                       @click="loginPhoneHandler"
-                    >登录</Button>
+                    >
+                      <span v-if="!loginLoading">登录</span>
+                      <span v-else>登录中...</span>
+                    </Button>
                   </FormItem>
                 </Form>
                 <span>

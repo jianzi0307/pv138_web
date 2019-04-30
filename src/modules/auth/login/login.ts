@@ -17,6 +17,10 @@ class Login extends Vue {
   protected rememberMobile: boolean = false;
   protected cdButtonStatus: string = 'idle';
 
+  // 登录按钮loading
+  protected loginLoading: boolean = false;
+  protected loginPhoneLoading: boolean = false;
+
   protected loginFormData: any = {
     account: '',
     accountType: 'mobile',
@@ -47,22 +51,34 @@ class Login extends Vue {
 
   protected loginHandler() {
     const self: any = this;
+    self.loginLoading = true;
     self.$refs['loginForm'].validate((valid: boolean) => {
       if (valid) {
         self.attemptLogin(self.loginFormData)
           .then(() => self.loginSuccess())
-          .catch((e: any) => console.log(e.message || '登录失败'))
+          .catch((e: any) => {
+            console.log(e.message || '登录失败');
+            setTimeout(() => { self.loginLoading = false; }, 500);
+          })
+      } else {
+        self.loginLoading = false;
       }
     });
   }
 
   protected loginPhoneHandler() {
     const self: any = this;
+    self.loginPhoneLoading = true;
     self.$refs['loginPhoneForm'].validate((valid: boolean) => {
       if (valid) {
         self.attemptLoginPhone(self.loginPhoneFormData)
           .then(() => self.loginSuccess())
-          .catch((e: any) => console.log(e.message || '登录失败'));
+          .catch((e: any) => {
+            console.log(e.message || '登录失败');
+            setTimeout(() => { self.loginPhoneLoading = false; }, 500);
+          });
+      } else {
+        self.loginPhoneLoading = false;
       }
     });
   }
