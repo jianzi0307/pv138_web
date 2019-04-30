@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="auth-wrapper">
     <div class="header">
       <div class="logo">
           <a href="/"><img src="@/assets/logo.svg"></a>
@@ -17,7 +17,7 @@ body {
 body {
   background: url("../../assets/web/login_bg.gif");
 }
-.wrapper {
+.auth-wrapper {
   height: 100%;
   .header {
     padding: 10px 50px;
