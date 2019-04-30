@@ -19,10 +19,11 @@ const beforeEach = async (to: any, from: any, next: any) => {
         next({ path: to.path });
       })
     } else {
-      if (to.path !== '/auth/login') {
+      if (to.name !== 'auth.login') {
         next();
       } else {
-        next(from.fullPath);
+        // next(from.fullPath);
+        next({ name: 'console.home' });
       }
     }
   }
