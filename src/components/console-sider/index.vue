@@ -1,16 +1,19 @@
 <template>
-  <Sider class="sider" hide-trigger>
-    <!-- 加 accordion 开启手风琴模式 -->
-    <Menu
-      :active-name="currentMenu"
-      :open-names="parentRoutes"
-      theme="light"
-      width="auto"
-      @on-select="onMenuSelectedHandler"
-    >
-      <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
-    </Menu>
-  </Sider>
+  <div class="console-sider-wrapper">
+    <slot></slot>
+    <Sider class="sider" hide-trigger collapsible v-model="collapsed" collapsed-width="64">
+      <!-- 加 accordion 开启手风琴模式 -->
+      <Menu
+        :active-name="currentMenu"
+        :open-names="parentRoutes"
+        theme="light"
+        width="auto"
+        @on-select="onMenuSelectedHandler"
+      >
+        <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
+      </Menu>
+    </Sider>
+  </div>
 </template>
 <script>
 import { create } from "@/utils/comp-creater";
@@ -19,7 +22,7 @@ import store from "@/store";
 
 export default create({
   name: "console-sider",
-  props: ["menus"],
+  props: ["menus", "collapsed"],
   components: {
     TreeItem
   },

@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     handleChange() {
-      this.$emit("on-change", !this.collapsed);
+      this.$emit("onChangeEvent", !this.collapsed);
     }
   }
 };

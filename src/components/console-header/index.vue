@@ -9,7 +9,7 @@
           class="sider-trigger"
           :collapsed="collapsed"
           icon="md-menu"
-          @on-change="collpasedChangeHandler"
+          @onChangeEvent="collpasedChangeHandler"
         ></sider-trigger>
       </div>
       <div class="layout-right">
@@ -69,7 +69,7 @@ export default create({
       this.$router.push({ name: name });
     },
     collpasedChangeHandler(state) {
-      this.$emit("on-coll-change", state);
+      this.$emit("onCollChangeEvent", state);
     }
   },
   mounted() {

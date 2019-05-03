@@ -6,11 +6,21 @@
         :dropdowns="headerDropdownItems"
         :menus="menuItems"
         @dropdownClickEvent="dropdownClickEventHandler"
+        @onCollChangeEvent="onCollChangeEventHandler"
       ></pv138-console-header>
       <Layout class="layout-body">
         <Content>
           <Layout class="layout-content-container">
-            <pv138-console-sider :menus="sidebarMenu" @onMenuSelectedEvent="onMenuSelectedHandler"></pv138-console-sider>
+            <pv138-console-sider
+              :collapsed="collapsed"
+              :menus="sidebarMenu"
+              @onMenuSelectedEvent="onMenuSelectedHandler"
+            >
+              <div class="logo-con">
+                <img v-show="!collapsed" :src="maxLogo" key="max-logo">
+                <img v-show="collapsed" :src="minLogo" key="min-logo">
+              </div>
+            </pv138-console-sider>
             <Content :style="{padding: '24px'}">
               <Breadcrumb class="breadcrumb">
                 <BreadcrumbItem
@@ -70,6 +80,8 @@ import store from '@/store';
 })
 class Console extends Vue {
   protected logo: any = require('@/assets/logo.svg');
+  // 侧边栏折叠
+  protected collapsed: boolean = false;
   // 下拉菜单
   protected headerDropdownItems: any[] = [
     {
@@ -103,6 +115,10 @@ class Console extends Vue {
         window.location.reload();
         break;
     }
+  }
+
+  protected async onCollChangeEventHandler(coll: boolean) {
+    this.collapsed = coll;
   }
 
   protected async onMenuSelectedHandler(name: string) {
