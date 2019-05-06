@@ -16,10 +16,6 @@
               :menus="sidebarMenu"
               @onMenuSelectedEvent="onMenuSelectedHandler"
             >
-              <div class="logo-con">
-                <img v-show="!collapsed" :src="maxLogo" key="max-logo">
-                <img v-show="collapsed" :src="minLogo" key="min-logo">
-              </div>
             </pv138-console-sider>
             <Content :style="{padding: '24px'}">
               <Breadcrumb class="breadcrumb">

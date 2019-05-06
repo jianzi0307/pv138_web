@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Submenu :name="model.route" v-if="hasChildren">
+    <Submenu :name="model.route" v-if="hasChildren && !collaped">
       <template slot="title">
         <Icon :type="model.icon"/>
-        {{model.label}}
+        <span>{{model.label}}</span>
       </template>
       <tree-item v-for="child in model.children" :key="child.id" :model="child"></tree-item>
     </Submenu>
     <MenuItem v-else :name="model.route">
       <Icon v-if="model.icon" :type="model.icon"/>
-      {{model.label}}
+      <span>{{model.label}}</span>
     </MenuItem>
   </div>
 </template>
@@ -18,7 +18,7 @@
 // 菜单递归组件
 export default {
   name: "tree-item",
-  props: ["model"],
+  props: ["model", "collaped"],
   components: {},
   computed: {
     hasChildren: function() {

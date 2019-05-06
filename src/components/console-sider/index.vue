@@ -1,16 +1,17 @@
 <template>
   <div class="console-sider-wrapper">
-    <slot></slot>
-    <Sider class="sider" hide-trigger collapsible v-model="collapsed" collapsed-width="64">
+    <!-- class="sider" -->
+    <Sider default-collapsed="false" collapsible v-model="isCollapsed" collapsed-width="64">
       <!-- 加 accordion 开启手风琴模式 -->
       <Menu
+        :class="menuitemClasses"
         :active-name="currentMenu"
         :open-names="parentRoutes"
         theme="light"
         width="auto"
         @on-select="onMenuSelectedHandler"
       >
-        <tree-item v-for="model in menus" :key="model.label" :model="model"></tree-item>
+        <tree-item v-for="model in menus" :key="model.label" :model="model" :collaped="isCollapsed"></tree-item>
       </Menu>
     </Sider>
   </div>
@@ -39,10 +40,14 @@ export default create({
         }
       }
       return routes;
+    },
+    menuitemClasses() {
+      return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
     }
   },
   data: function() {
     return {
+      isCollapsed: false
       // siderMenus: []
     };
   },
@@ -58,7 +63,7 @@ export default create({
     }
   },
   mounted() {
-    // this.siderMenus = this.menus;
+    this.isCollapsed = this.collapsed;
   }
 });
 </script>
@@ -75,6 +80,14 @@ export default create({
     .ivu-menu {
       position: inherit;
     }
+  }
+}
+
+.collapsed-menu {
+  /deep/ span {
+    display: none;
+    transition: width 0.2s ease;
+    width: 0px;
   }
 }
 </style>
