@@ -3,7 +3,7 @@
     <Icon :type="icon" :size="size"/>
   </a>
 </template>
-<script> 
+<script>
 export default {
   name: "sider-trigger",
   props: {
@@ -19,17 +19,18 @@ export default {
   },
   methods: {
     handleChange() {
+      console.log(this.collapsed, "SDF");
       this.$emit("onChangeEvent", !this.collapsed);
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-@mixin trans{
-  transition: transform .2s ease;
+@mixin trans {
+  transition: transform 0.2s ease;
 }
 $size: 40px;
-.sider-trigger-a{
+.sider-trigger-a {
   padding: 6px;
   width: $size;
   height: $size;
@@ -37,11 +38,11 @@ $size: 40px;
   text-align: center;
   color: #5c6b77;
   margin-top: 12px;
-  i{
+  i {
     @include trans;
     vertical-align: top;
   }
-  &.collapsed i{
+  &.collapsed i {
     transform: rotateZ(90deg);
     @include trans;
   }

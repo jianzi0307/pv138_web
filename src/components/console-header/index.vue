@@ -69,6 +69,7 @@ export default create({
       this.$router.push({ name: name });
     },
     collpasedChangeHandler(state) {
+      this.collapsed = state;
       this.$emit("onCollChangeEvent", state);
     }
   },

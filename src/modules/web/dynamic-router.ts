@@ -48,7 +48,18 @@ const dynamicRoutes = [
         meta: {
           name: '智能推送',
           requiresAuth: true
-        }
+        },
+        children: [
+          {
+            path: 'aiai',
+            name: 'aaa',
+            component: () => import('@/modules/web/console/mass/ai.vue'),
+            meta: {
+              name: '你好',
+              requiresAuth: true
+            },
+          }
+        ]
       },
       {
         path: 'advanced',

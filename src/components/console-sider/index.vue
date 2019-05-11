@@ -1,9 +1,10 @@
 <template>
   <div class="console-sider-wrapper">
     <!-- class="sider" -->
-    <Sider default-collapsed="false" collapsible v-model="isCollapsed" collapsed-width="64">
+    <Sider width="170" hide-trigger collapsible v-model="isCollapsed" collapsed-width="64">
       <!-- 加 accordion 开启手风琴模式 -->
       <Menu
+        accordion
         :class="menuitemClasses"
         :active-name="currentMenu"
         :open-names="parentRoutes"
@@ -45,6 +46,14 @@ export default create({
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
     }
   },
+  watch: {
+    collapsed(curr, old) {
+      if (curr === old) {
+        return;
+      }
+      this.isCollapsed = curr;
+    }
+  },
   data: function() {
     return {
       isCollapsed: false
@@ -69,25 +78,41 @@ export default create({
 </script>
 
 <style lang="scss" scoped>
-.sider {
-  overflow: auto;
-  background: #fff;
-
-  width: 170px !important;
-  min-width: 170px !important;
-  max-width: 170px !important;
-  /deep/ .ivu-layout-sider-children {
-    .ivu-menu {
-      position: inherit;
-    }
-  }
+/deep/ .ivu-menu,
+/deep/ .ivu-layout-sider {
+  position: static;
 }
-
+/deep/ li {
+  white-space: nowrap;
+}
+/deep/ span {
+  display: inline-block;
+  overflow: hidden;
+  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+  transition: width 0.2s ease 0.2s;
+}
+/deep/ i {
+  transform: translateX(0px);
+  transition: font-size 0.2s ease, transform 0.2s ease;
+  vertical-align: middle;
+  font-size: 16px;
+}
 .collapsed-menu {
-  /deep/ span {
+  /deep/ .ivu-menu-submenu-title-icon {
     display: none;
-    transition: width 0.2s ease;
+  }
+  /deep/ span {
     width: 0px;
+    transition: width 0.2s ease;
+  }
+  /deep/ i {
+    transform: translateX(-2px);
+    transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
+    vertical-align: middle;
+    font-size: 22px;
   }
 }
 </style>

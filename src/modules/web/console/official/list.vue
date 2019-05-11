@@ -1,20 +1,20 @@
 <template>
   <div class="wrapper" v-if="tableData.length > 0">
     <div class="form-area">
-      <Form ref="formValidate" inline="true" :model="formValidate" :rules="ruleValidate">
+      <Form ref="formValidate" inline>
         <FormItem prop="name">
-          <Select class="sel" v-model="model2" size="small">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select class="sel" size="small">
+            <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
         <FormItem prop="name">
-          <Select class="sel" v-model="model2" size="small">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select class="sel" size="small">
+            <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
         <FormItem prop="name">
-          <Select class="sel" v-model="model2" size="small">
-            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Select class="sel" size="small">
+            <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
         <FormItem prop="name">
@@ -60,6 +60,7 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component({})
 export default class OfficialList extends Vue {
+  protected list = [];
   protected columns = [
     {
       type: 'selection',
