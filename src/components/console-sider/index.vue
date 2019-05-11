@@ -1,7 +1,13 @@
 <template>
   <div class="console-sider-wrapper">
     <!-- class="sider" -->
-    <Sider width="170" hide-trigger collapsible v-model="isCollapsed" collapsed-width="64">
+    <Sider
+      width="170"
+      hide-trigger
+      collapsible
+      v-model="isCollapsed"
+      collapsed-width="64"
+    >
       <!-- 加 accordion 开启手风琴模式 -->
       <Menu
         accordion
@@ -78,6 +84,9 @@ export default create({
 </script>
 
 <style lang="scss" scoped>
+.console-sider-wrapper {
+  background-color: white;
+}
 /deep/ .ivu-menu,
 /deep/ .ivu-layout-sider {
   position: static;

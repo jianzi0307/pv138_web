@@ -1,11 +1,17 @@
 <template>
   <Submenu :name="model.route" v-if="hasChildren">
     <template slot="title" v-if="collaped">
-      <Poptip trigger="hover" placement="right-start" :title="model.label" transfer>
+      <Poptip
+        trigger="hover"
+        v-model="poptipVisible"
+        placement="right-start"
+        :title="model.label"
+        transfer
+      >
         <Icon :type="model.icon"/>
-        <DropdownMenu slot="content">
+        <CellGroup slot="content" @on-click="cellClickHandler">
           <tree-dropdown-item v-for="child in model.children" :key="child.id" :model="child"></tree-dropdown-item>
-        </DropdownMenu>
+        </CellGroup>
       </Poptip>
     </template>
 
@@ -49,12 +55,18 @@ export default {
   data: function() {
     return {
       // model: {},
-      open: true
+      poptipVisible: false
     };
   },
   watch: {
     model(curr, old) {
       // this.model = curr;
+    }
+  },
+  methods: {
+    cellClickHandler(name) {
+      this.$router.push({ name });
+      this.poptipVisible = false;
     }
   }
 };

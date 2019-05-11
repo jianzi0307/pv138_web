@@ -1,14 +1,13 @@
 <template>
   <Poptip v-if="hasChildren" trigger="hover" placement="right-start" :title="model.label">
-    <DropdownItem>
-      {{model.label}}
-      <Icon type="ios-arrow-forward"></Icon>
-    </DropdownItem>
-    <DropdownMenu slot="content">
+    <Cell :title="model.label" class="cell">
+      <Icon type="ios-arrow-forward" slot="extra"></Icon>
+    </Cell>
+    <div slot="content">
       <tree-dropdown-item v-for="child in model.children" :key="child.id" :model="child"></tree-dropdown-item>
-    </DropdownMenu>
+    </div>
   </Poptip>
-  <DropdownItem v-else>{{model.label}}</DropdownItem>
+  <Cell :title="model.label" :name="model.route" v-else></Cell>
 </template>
 <script>
 // 菜单递归组件
@@ -29,4 +28,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.cell {
+  padding-right: 30px;
+}
 </style>
