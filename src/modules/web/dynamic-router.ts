@@ -58,6 +58,15 @@ const dynamicRoutes = [
               name: '你好',
               requiresAuth: true
             },
+          },
+          {
+            path: 'aiaiai',
+            name: 'bbb',
+            component: () => import('@/modules/web/console/mass/ai.vue'),
+            meta: {
+              name: '你好2',
+              requiresAuth: true
+            },
           }
         ]
       },
