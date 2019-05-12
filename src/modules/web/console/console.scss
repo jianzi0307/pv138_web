@@ -1,6 +1,10 @@
 .layout {
   /deep/ .ivu-layout {
     background: none;
+    height: 100%;
+  }
+  /deep/ .ivu-layout-sider {
+    background-color: white;
   }
 }
 .layout-header {
@@ -42,23 +46,6 @@
   }
 }
 
-.layout-footer-center {
-  text-align: center;
-  background-color: #f5f7f9;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.layout-body {
-  //   margin: 15px 0;
-  //   border: solid 1px red;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 64px;
-  bottom: 0;
-}
 .layout-content-container {
   //   background: #f5f7f9;
   position: absolute;
@@ -77,6 +64,8 @@
   background-color: white;
   padding: 20px;
   margin-top: 15px;
+  min-width: 800px;
+  overflow: hidden;
 }
 
 .breadcrumb {

@@ -1,27 +1,19 @@
 <template>
-  <div class="console-sider-wrapper">
-    <!-- class="sider" -->
-    <Sider
-      width="170"
-      hide-trigger
-      collapsible
-      v-model="isCollapsed"
-      collapsed-width="64"
+  <!-- class="sider" -->
+  <Sider width="170" hide-trigger collapsible v-model="isCollapsed" collapsed-width="64">
+    <!-- 加 accordion 开启手风琴模式 -->
+    <Menu
+      accordion
+      :class="menuitemClasses"
+      :active-name="currentMenu"
+      :open-names="parentRoutes"
+      theme="light"
+      width="auto"
+      @on-select="onMenuSelectedHandler"
     >
-      <!-- 加 accordion 开启手风琴模式 -->
-      <Menu
-        accordion
-        :class="menuitemClasses"
-        :active-name="currentMenu"
-        :open-names="parentRoutes"
-        theme="light"
-        width="auto"
-        @on-select="onMenuSelectedHandler"
-      >
-        <tree-item v-for="model in menus" :key="model.label" :model="model" :collaped="isCollapsed"></tree-item>
-      </Menu>
-    </Sider>
-  </div>
+      <tree-item v-for="model in menus" :key="model.label" :model="model" :collaped="isCollapsed"></tree-item>
+    </Menu>
+  </Sider>
 </template>
 <script>
 import { create } from "@/utils/comp-creater";

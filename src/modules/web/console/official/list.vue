@@ -25,9 +25,7 @@
         <Icon type="md-add"/>添加公众号
       </Button>
     </div>
-    <div class="table">
-      <Table size="small" ref="selection" :columns="columns" :data="tableData"></Table>
-    </div>
+    <Table class="table" size="small" ref="selection" :columns="columns" :data="tableData"></Table>
   </div>
   <div v-else class="wrapper">
     <div class="tip-title">授权后管理更高效</div>
@@ -70,7 +68,6 @@ export default class OfficialList extends Vue {
     {
       title: '公众号',
       key: 'name',
-      width: 200,
       render: (h: any, params: any) => {
         return h('div', { style: { display: 'flex', alignItems: 'center' } }, [
           h('div', [
@@ -111,19 +108,23 @@ export default class OfficialList extends Vue {
     },
     {
       title: '账号类型',
-      key: 'type'
+      key: 'type',
+      width: 90
     },
     {
       title: '认证状态',
-      key: 'status'
+      key: 'status',
+      width: 90
     },
     {
       title: '粉丝数',
-      key: 'fans'
+      key: 'fans',
+      width: 90
     },
     {
       title: '互动粉丝数',
-      key: 'actfans'
+      key: 'actfans',
+      width: 100
     },
     {
       title: '分组',

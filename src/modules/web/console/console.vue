@@ -1,6 +1,7 @@
 <template>
-  <div class="wrapper">
-    <Layout class="layout">
+  <div class="layout wrapper">
+    <Layout>
+      <!-- 头部 -->
       <pv138-console-header
         :logo="logo"
         :dropdowns="headerDropdownItems"
@@ -8,40 +9,32 @@
         @dropdownClickEvent="dropdownClickEventHandler"
         @onCollChangeEvent="onCollChangeEventHandler"
       ></pv138-console-header>
-      <Layout class="layout-body">
-        <Content>
-          <Layout class="layout-content-container">
-            <pv138-console-sider
-              :collapsed="collapsed"
-              :menus="sidebarMenu"
-              @onMenuSelectedEvent="onMenuSelectedHandler"
-            >
-            </pv138-console-sider>
-            <Content :style="{padding: '24px'}">
-              <Breadcrumb class="breadcrumb">
-                <BreadcrumbItem
-                  v-for="route in crumbList"
-                  :key="route.name"
-                  :to="{name:route.name}"
-                >{{route.meta.name}}</BreadcrumbItem>
-              </Breadcrumb>
-              <div class="page-content">
-                <router-view></router-view>
-              </div>
-            </Content>
-          </Layout>
-        </Content>
+      <Layout class="ivu-layout-has-sider">
+        <!-- 侧边栏 -->
+        <pv138-console-sider
+          :collapsed="collapsed"
+          :menus="sidebarMenu"
+          @onMenuSelectedEvent="onMenuSelectedHandler"
+        ></pv138-console-sider>
+        <!-- 内容 -->
+        <Layout :style="{padding: '24px',background: '#f5f7f9'}">
+          <Breadcrumb class="breadcrumb">
+            <BreadcrumbItem
+              v-for="route in crumbList"
+              :key="route.name"
+              :to="{name:route.name}"
+            >{{route.meta.name}}</BreadcrumbItem>
+          </Breadcrumb>
+          <Content class="page-content">
+            <router-view></router-view>
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   </div>
 </template>
 <style lang="scss" scoped>
 @import "./console.scss";
-html,
-body {
-  height: 100%;
-  padding: 0;
-}
 .wrapper {
   height: 100%;
 }
@@ -120,6 +113,10 @@ class Console extends Vue {
   protected async onMenuSelectedHandler(name: string) {
     const self: any = this;
     self.$router.push({ name });
+  }
+
+  protected mounted() {
+    document.body.style.height = document.documentElement.scrollHeight + 'px';
   }
 }
 
