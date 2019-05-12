@@ -67,7 +67,9 @@ export default {
         return [];
       }
     },
-    homeName: string
+    homeName: {
+      type: String
+    }
   },
   data() {
     return {
@@ -122,14 +124,14 @@ export default {
     handleTagsOption(type) {
       if (type.includes("all")) {
         // 关闭所有，除了home
-        let res = this.list.filter(item => item.name === homeName);
+        let res = this.list.filter(item => item.name === this.homeName);
         this.$emit("on-close", res, "all");
       } else if (type.includes("others")) {
         // 关闭除当前页和home页的其他页
         let res = this.list.filter(
           item =>
             Util.routeEqual(this.currentRouteObj, item) ||
-            item.name === homeName
+            item.name === this.homeName
         );
         this.$emit("on-close", res, "others", this.currentRouteObj);
         setTimeout(() => {
@@ -191,7 +193,7 @@ export default {
       });
     },
     contextMenu(item, e) {
-      if (item.name === homeName) {
+      if (item.name === this.homeName) {
         return;
       }
       this.visible = true;

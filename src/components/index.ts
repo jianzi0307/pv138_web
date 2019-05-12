@@ -3,6 +3,7 @@ import CdText from './cd-text/index.vue';
 import ConsoleHeader from './console-header/index.vue';
 import ConsoleSider from './console-sider/index.vue';
 import TagsNav from './tags-nav/index.vue';
+import AuthorizePrompt from './authorize-prompt/index.vue';
 
 const version = '0.1.0'
 const components = [
@@ -10,7 +11,8 @@ const components = [
   CdText,
   ConsoleHeader,
   ConsoleSider,
-  TagsNav
+  TagsNav,
+  AuthorizePrompt
 ]
 const install = (Vue: any) => {
   components.forEach((Component: any) => {
@@ -27,7 +29,8 @@ export {
   CdText,
   ConsoleHeader,
   ConsoleSider,
-  TagsNav
+  TagsNav,
+  AuthorizePrompt
 }
 export default {
   install,

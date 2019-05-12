@@ -33,38 +33,19 @@
     style="display:flex;flex-direction:row;justify-content: center;
   align-items: flex-start;"
   >
-    <Card dis-hover :bordered="false" shadow style="width:650px;margin-top:30px;">
-      <p slot="title">授权后管理更高效</p>
-      <div class="tips">
-        <div>
-          <Icon class="icon" type="ios-apps-outline"/>多公众号同时管理，一键切换，轻松运营。
-        </div>
-        <div>
-          <Icon class="icon" type="ios-bookmark-outline"/>粉丝数据实时更新，图文详情及时分析
-        </div>
-        <div>
-          <Icon class="icon" type="ios-bonfire-outline"/>素材定时定向推送&客服消息，服务号可以发送模版消
-        </div>
-        <div>
-          <Icon class="icon" type="ios-bug-outline"/>一键抓取图文、添加模版、精选样式排版
-        </div>
-      </div>
-
-      <div class="agreement">
-        <Checkbox>
-          授权即表示阅读并同意
-          <a href="http://www.baidu.com">《授权相关事项和风险》</a>
-        </Checkbox>
-        <Button type="primary">立即授权</Button>
-      </div>
-    </Card>
+    <pv138-authorize-prompt></pv138-authorize-prompt>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import { AuthorizePrompt } from '@/components/';
 
-@Component({})
+@Component({
+  components: {
+    [AuthorizePrompt.name]: AuthorizePrompt
+  }
+})
 export default class OfficialList extends Vue {
   protected list = [];
   protected columns = [
