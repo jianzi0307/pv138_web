@@ -46,7 +46,7 @@ import { AuthorizePrompt } from '@/components/';
     [AuthorizePrompt.name]: AuthorizePrompt
   }
 })
-export default class OfficialList extends Vue {
+class OfficialList extends Vue {
   protected list = [];
   protected columns = [
     {
@@ -187,6 +187,7 @@ export default class OfficialList extends Vue {
     }*/
   ];
 }
+export default OfficialList;
 </script>
 
 
