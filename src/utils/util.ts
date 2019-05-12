@@ -1,4 +1,93 @@
+import { consoleHomeName } from '@/config';
+
 class Util {
+
+  public static getRouteTitleHandled(route: any) {
+    const router = { ...route }
+    const meta = { ...route.meta }
+    router.meta = meta;
+    return router;
+  }
+
+  /**
+   * 判断打开的标签列表里是否已存在这个新添加的路由对象
+   */
+  public static routeHasExist(tagsNavList: any, routeItem: any) {
+    const len = tagsNavList.length
+    let res = false
+    Util.doCustomTimes(len, (index: number) => {
+      if (Util.routeEqual(tagsNavList[index], routeItem)) {
+        res = true;
+      }
+    })
+    return res
+  }
+
+  // times 回调函数需要执行的次数 callback 回调函数
+  public static doCustomTimes(times: number, callback: any) {
+    let i = -1
+    while (++i < times) {
+      callback(i)
+    }
+  }
+  // 如果该newRoute已经存在则不再添加 list 现有标签导航列表 newRoute 新添加的路由原信息对象
+  public static getNewTagList(list: any, newRoute: any) {
+    const { name, path, meta } = newRoute
+    const newList: any = [...list]
+    if (newList.findIndex((item: any) => item.name === name) >= 0) return newList
+    else newList.push({ name, path, meta })
+    return newList
+  }
+
+  // list 标签列表 name 当前关闭的标签名
+  public static getNextRoute(list: any, route: any) {
+    let res = {};
+    if (list.length === 2) {
+      res = Util.getHomeRoute(list);
+    } else {
+      const index = list.findIndex((item: any) => Util.routeEqual(item, route));
+      if (index === list.length - 1) res = list[list.length - 2];
+      else res = list[index + 1];
+    }
+    return res;
+  }
+
+  // 用于找到路由列表中name为home的对象 routers 路由列表数组
+  public static getHomeRoute(routers: any, homeName = consoleHomeName) {
+    let i = -1;
+    const len = routers.length;
+    let homeRoute = {};
+    while (++i < len) {
+      const item = routers[i];
+      if (item.children && item.children.length) {
+        const res: any = Util.getHomeRoute(item.children, homeName);
+        if (res.name) return res;
+      } else {
+        if (item.name === homeName) homeRoute = item;
+      }
+    }
+    return homeRoute;
+  }
+
+  // 判断两个对象是否相等，这两个对象的值只能是数字或字符串
+  public static objEqual(obj1: any, obj2: any) {
+    const keysArr1 = Object.keys(obj1);
+    const keysArr2 = Object.keys(obj2);
+    if (keysArr1.length !== keysArr2.length) return false;
+    else if (keysArr1.length === 0 && keysArr2.length === 0) return true;
+    /* eslint-disable-next-line */
+    else return !keysArr1.some((key: any) => obj1[key] !== obj2[key]);
+  }
+
+  // 根据name/params/query判断两个路由对象是否相等
+  public static routeEqual(route1: any, route2: any) {
+    const params1 = route1.params || {};
+    const params2 = route2.params || {};
+    const query1 = route1.query || {};
+    const query2 = route2.query || {};
+    return (route1.name === route2.name) && Util.objEqual(params1, params2) && Util.objEqual(query1, query2);
+  }
+
   // 递归生成拥有权限的路由
   public static recursionRouter(userRouter = [], allRouter: any[] = []) {
     const realRoutes: any[] = [];

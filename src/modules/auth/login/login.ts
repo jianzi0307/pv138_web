@@ -2,6 +2,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import { validateMobileRule, validateSmsCodeRule, validatePasswordRule } from '@/utils/validator';
 import { mapActions } from 'vuex';
 import { CdButton } from '@/components';
+import { consoleHomeName } from '@/config';
 
 @Component({
   components: {
@@ -112,7 +113,7 @@ class Login extends Vue {
 
   protected loginSuccess() {
     this.$Message.success('登录成功！');
-    this.$router.push({ name: 'console.home' });
+    this.$router.push({ name: consoleHomeName });
   }
 }
 export default Login;

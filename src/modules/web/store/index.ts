@@ -4,6 +4,7 @@ import * as services from '@/utils/services';
 import defaultRoutes, { DynamicRoutes } from '@/modules/web/routes';
 import router from '@/router/index';
 import dynamicRouter from '@/modules/web/dynamic-router';
+import { consoleHomeName } from '@/config';
 
 export default {
   module: {
@@ -15,7 +16,15 @@ export default {
       // 当前选中的导航栏
       currentMenu: '',
       // 面包屑
-      crumbList: []
+      crumbList: [],
+      // 标签栏
+      get tagsNavList() {
+        const list = localStorage.tagsNavList
+        return list ? JSON.parse(list) : []
+      },
+      set tagsNavList(value) {
+        localStorage.tagsNavList = JSON.stringify(value);
+      }
     },
     mutations: {
       SET_USER_PERMISSION(state: any, routes: any) {
@@ -30,7 +39,50 @@ export default {
       },
       SET_CRUMB_LIST(state: any, list: any) {
         state.crumbList = list;
-      }
+      },
+      async SET_TAGS_NAV_LIST(state: any, list: any) {
+        let tagList = []
+        if (list) {
+          tagList = [...list]
+        } else {
+          tagList = await state.tagsNavList || []
+        }
+        if (tagList[0] && tagList[0].name !== consoleHomeName) tagList.shift()
+        const homeTagIndex = tagList.findIndex((item: any) => item.name === consoleHomeName)
+        if (homeTagIndex > 0) {
+          const homeTag = tagList.splice(homeTagIndex, 1)[0]
+          tagList.unshift(homeTag)
+        }
+        state.tagsNavList = tagList
+      },
+      CLOSE_TAG(state: any, route: any) {
+        const tag = state.tagsNavList.filter((item: any) => Util.routeEqual(item, route));
+        route = tag[0] ? tag[0] : null;
+        if (!route) return;
+        const nextRoute = Util.getNextRoute(state.tagsNavList, route);
+        state.tagsNavList = state.tagsNavList.filter((item: any) => {
+          return !Util.routeEqual(item, route);
+        });
+        router.push(nextRoute);
+      },
+      ADD_TAG(state: any, { route, type = 'unshift' }: any) {
+        const r: any = Util.getRouteTitleHandled(route);
+        if (!Util.routeHasExist(state.tagsNavList, r)) {
+          if (type === 'push') state.tagsNavList.push(r);
+          else {
+            if (r.name === consoleHomeName) {
+              const lis: any[] = state.tagsNavList;
+              lis.unshift(r);
+              state.tagsNavList = lis;
+            }
+            else {
+              const list: any[] = state.tagsNavList
+              state.tagsNavList = list.splice(1, 0, r);
+            }
+          }
+          state.tagsNavList = [...state.tagsNavList];
+        }
+      },
     },
     actions: {
       // 设置侧边栏菜单
@@ -47,6 +99,20 @@ export default {
       setCrumbList({ commit }: any, list: any) {
         commit('SET_CRUMB_LIST', list);
         Promise.resolve(list);
+      },
+      // 设置标签栏
+      setTagNavList({ commit }: any, list: any) {
+        commit('SET_TAGS_NAV_LIST', list);
+        Promise.resolve(list);
+      },
+
+      addTag({ commit }: any, data: any) {
+        commit('ADD_TAG', data);
+        Promise.resolve(data);
+      },
+      closeTag({ commit }: any, route: any) {
+        commit('CLOSE_TAG', route);
+        Promise.resolve(route);
       },
       // 设置用户权限
       setPermission({ commit }: any, data: any) {
@@ -88,7 +154,8 @@ export default {
       hasPermission(state: any) { return !_.isEmpty(state.permissionList); },
       getSiderMenus(state: any) { return state.sidebarMenu; },
       getCurrentMenu(state: any) { return state.currentMenu },
-      getCrumbList(state: any) { return state.crumbList }
+      getCrumbList(state: any) { return state.crumbList },
+      getTagNavList(state: any) { return state.tagsNavList }
     }
   }
 };

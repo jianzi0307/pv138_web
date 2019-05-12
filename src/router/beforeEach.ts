@@ -1,4 +1,5 @@
 import store from '../store'
+import { consoleHomeName } from '@/config';
 
 const beforeEach = async (to: any, from: any, next: any) => {
   //
@@ -23,7 +24,7 @@ const beforeEach = async (to: any, from: any, next: any) => {
         next();
       } else {
         // next(from.fullPath);
-        next({ name: 'console.home' });
+        next({ name: consoleHomeName });
       }
     }
   }

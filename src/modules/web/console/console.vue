@@ -17,17 +17,26 @@
           @onMenuSelectedEvent="onMenuSelectedHandler"
         ></pv138-console-sider>
         <!-- 内容 -->
-        <Layout :style="{padding: '24px',background: '#f5f7f9'}">
-          <Breadcrumb class="breadcrumb">
-            <BreadcrumbItem
-              v-for="route in crumbList"
-              :key="route.name"
-              :to="{name:route.name}"
-            >{{route.meta.name}}</BreadcrumbItem>
-          </Breadcrumb>
-          <Content class="page-content">
-            <router-view></router-view>
-          </Content>
+        <Layout :style="{background: '#f5f7f9'}">
+          <tags-nav
+            :value="$route"
+            :homeName="homeName"
+            @input="tagClickHandler"
+            :list="tagList"
+            @on-close="tagCloseHandler"
+          />
+          <div style="padding: 24px;">
+            <Breadcrumb class="breadcrumb">
+              <BreadcrumbItem
+                v-for="route in crumbList"
+                :key="route.name"
+                :to="{name:route.name}"
+              >{{route.meta.name}}</BreadcrumbItem>
+            </Breadcrumb>
+            <Content class="page-content">
+              <router-view></router-view>
+            </Content>
+          </div>
         </Layout>
       </Layout>
     </Layout>
@@ -41,17 +50,19 @@
 </style>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 import { RouteConfig } from 'vue-router';
 import { mapActions } from 'vuex';
 import Util from '@/utils/util';
-import { ConsoleHeader, ConsoleSider } from '@/components';
+import { ConsoleHeader, ConsoleSider, TagsNav } from '@/components';
+import { consoleHomeName } from '@/config';
 import store from '@/store';
 
 @Component({
   components: {
     [ConsoleHeader.name]: ConsoleHeader,
-    [ConsoleSider.name]: ConsoleSider
+    [ConsoleSider.name]: ConsoleSider,
+    [TagsNav.name]: TagsNav
   },
   computed: {
     sidebarMenu() {
@@ -59,15 +70,19 @@ import store from '@/store';
     },
     crumbList() {
       return store.getters.getCrumbList.filter((route: any) => {
-        return route.name !== 'console.home';
+        return route.name !== consoleHomeName;
       });
+    },
+    tagList() {
+      return store.getters.getTagNavList;
     }
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout', 'setTagNavList', 'closeTag', 'addTag'])
   }
 })
 class Console extends Vue {
+  protected homeName: string = consoleHomeName;
   protected logo: any = require('@/assets/logo.svg');
   // 侧边栏折叠
   protected collapsed: boolean = false;
@@ -115,8 +130,50 @@ class Console extends Vue {
     self.$router.push({ name });
   }
 
+  protected tagClickHandler(item: any) {
+    this.$router.push({ name: item.name });
+  }
+
+  protected tagCloseHandler(res: any, type: string, route: any) {
+    const self: any = this;
+    if (type !== 'others') {
+      if (type === 'all') {
+        this.$router.push({ name: consoleHomeName });
+      } else {
+        if (Util.routeEqual(this.$route, route)) {
+          self.closeTag(route);
+        }
+      }
+    }
+    self.setTagNavList(res);
+  }
+
   protected mounted() {
+    const self: any = this;
     document.body.style.height = document.documentElement.scrollHeight + 'px';
+    self.setTagNavList();
+
+    const { name, params, query, meta } = this.$route;
+    self.addTag({
+      route: { name, params, query, meta }
+    });
+    // 如果当前打开页面不在标签栏中，跳到homeName页
+    if (!self.tagList.find((item: any) => item.name === this.$route.name)) {
+      self.$router.push({
+        name: consoleHomeName
+      });
+    }
+  }
+
+  @Watch('$route')
+  public routeChanged(newRoute: any, oldVal: string) {
+    const self: any = this;
+    const { name, query, params, meta } = newRoute;
+    self.addTag({
+      route: { name, query, params, meta },
+      type: 'push'
+    });
+    self.setTagNavList(Util.getNewTagList(self.tagList, newRoute));
   }
 }
 

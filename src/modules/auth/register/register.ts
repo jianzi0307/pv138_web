@@ -4,13 +4,14 @@ import _ from 'lodash';
 
 import { validateMobileRule, validateSmsCodeRule, validatePasswordRule } from '@/utils/validator';
 import { CdButton } from '@/components';
+import { consoleHomeName } from '@/config';
 
 @Component({
   components: {
     [CdButton.name]: CdButton
   },
   methods: {
-    ...mapActions( ['attemptRegister', 'sendSmsCode'])
+    ...mapActions(['attemptRegister', 'sendSmsCode'])
   }
 })
 class Register extends Vue {
@@ -70,7 +71,7 @@ class Register extends Vue {
         try {
           await self.attemptRegister(self.formData);
           this.$Message.success('注册成功！');
-          this.$router.push({ name: 'console.home' });
+          this.$router.push({ name: consoleHomeName });
         } catch (e) {
           console.log(e.message || '注册失败');
         }

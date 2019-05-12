@@ -1,3 +1,4 @@
+import { consoleHomeName } from '@/config';
 // 初始路由
 export default [
   {
@@ -36,7 +37,7 @@ export const DynamicRoutes = [
     children: [
       {
         path: 'home',
-        name: 'console.home',
+        name: consoleHomeName,
         component: () => import('@/modules/web/console/home/home.vue'),
         meta: {
           name: '首页',
