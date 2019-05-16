@@ -1,6 +1,6 @@
 <template>
   <Card dis-hover :bordered="false" shadow style="width:650px;margin-top:30px;">
-    <p slot="title">授权后管理更高效</p>
+    <p slot="title">尚未授权已认证的公众号</p>
     <div class="tips">
       <div>
         <Icon class="icon" type="ios-apps-outline"/>多公众号同时管理，一键切换，轻松运营。
@@ -21,15 +21,25 @@
         授权即表示阅读并同意
         <a href="http://www.baidu.com">《授权相关事项和风险》</a>
       </Checkbox>
-      <Button type="primary">立即授权</Button>
+      <Button type="primary" @click="openplatformLoginPageHandler">立即授权</Button>
     </div>
   </Card>
 </template>
 
 <script>
-import { create } from "@/utils/comp-creater"; 
+import { create } from "@/utils/comp-creater";
+import { consoleHomeName } from "@/config";
 export default create({
-  name: "authorize-prompt"
+  name: "authorize-prompt",
+  methods: {
+    openplatformLoginPageHandler() {
+      const redirectUri = window.location.href;
+      const targetUrl = `${
+        process.env.VUE_APP_API_BASE_URL
+      }wxopen/login?redirect_uri=${encodeURIComponent(redirectUri)}`;
+      window.open(targetUrl, "_blank");
+    }
+  }
 });
 </script>
 
