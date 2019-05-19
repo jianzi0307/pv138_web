@@ -75,8 +75,36 @@ export const setToken = ({ commit }: any, payload: any) => {
   const token = _.isEmpty(payload) ? null : payload.token || payload;
   commit(TYPES.SET_TOKEN, token);
   setHttpHeaderToken(token);
+  localforage.setItem(userTokenStorageKey, token);
   return Promise.resolve(token);
 };
+
+export const checkUserToken = ({ dispatch, state }: any) => {
+  // If the token exists then all validation has already been done
+  if (!_.isEmpty(state.token)) {
+    return Promise.resolve(state.token)
+  }
+
+  /**
+   * Token does not exist yet
+   * - Recover it from localstorage
+   * - Recover also the user, validating the token also
+   */
+  return (
+    localforage
+      .getItem(userTokenStorageKey)
+      .then((token) => {
+        if (_.isEmpty(token)) {
+          // Token is not saved in localstorage
+          return Promise.reject('NO_TOKEN') // Reject promise
+        }
+        // Put the token in the vuex store
+        return dispatch('setToken', token) // keep promise chain
+      })
+      // With the token in hand, retrieves the user's data, validating the token
+      .then(() => dispatch('loadUser'))
+  )
+}
 
 /**
  * 获取并更新用户信息

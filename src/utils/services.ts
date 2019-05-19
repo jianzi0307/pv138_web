@@ -4,7 +4,7 @@ import http from '@/utils/http'
 
 // 手机密码登录
 export const postLogin = ({ account, accountType, password }: any) => {
-  return http.post('/auth/login', {
+  return http.post('auth/login', {
     account,
     accountType,
     password
@@ -13,7 +13,7 @@ export const postLogin = ({ account, accountType, password }: any) => {
 
 // 手机验证码登录
 export const postLoginPhone = ({ account, accountType, secCode }: any) => {
-  return http.post('/auth/login_phone', {
+  return http.post('auth/login_phone', {
     account,
     accountType,
     secCode
@@ -22,18 +22,18 @@ export const postLoginPhone = ({ account, accountType, secCode }: any) => {
 
 // 注册
 export const postRegister = (payload: any) => {
-  return http.post('/auth/register', payload)
+  return http.post('auth/register', payload)
 }
 
 // 发送验证码
 export const postSendSmsCode = (payload: any) => {
   console.log(payload, '<<<');
-  return http.post('/c/sms', payload);
+  return http.post('c/sms', payload);
 };
 
 // 短信验证码验证
 export const smsVerify = (payload: any) => {
-  return http.get('/c/sms/verify', { params: payload });
+  return http.get('c/sms/verify', { params: payload });
 };
 
 // 找回密码
@@ -50,6 +50,11 @@ export const loadUserPermission = () => {
   const per = require('@/assets/permission.json');
   console.log(per);
   return Promise.resolve(per);
+}
+
+// 用户授权后获取到auth_code，后续绑定公众号给当前登录用户
+export const bindOfficialToUser = (payload: any) => {
+  return http.post('api/officials/bind', payload);
 }
 
 // revoke current token

@@ -20,7 +20,17 @@ export default [
         path: 'product/master',
         name: 'product.master',
         component: () => import('@/modules/web/product/master.vue')
-      }
+      },
+      // 微信授权回调
+      {
+        path: 'wxopen/auth/callback',
+        name: 'web.wxopen.auth.callback',
+        component: () => import('@/modules/web/wxopen/callback.vue'),
+        meta: {
+          name: '授权回调',
+          requiresAuth: true
+        },
+      },
     ]
   }
 ];

@@ -167,6 +167,7 @@ class Console extends Vue {
 
   @Watch('$route')
   public routeChanged(newRoute: any, oldVal: string) {
+    console.log(newRoute, '<<<<');
     const self: any = this;
     const { name, query, params, meta } = newRoute;
     self.addTag({
