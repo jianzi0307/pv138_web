@@ -40,12 +40,12 @@ export default {
       SET_CRUMB_LIST(state: any, list: any) {
         state.crumbList = list;
       },
-      async SET_TAGS_NAV_LIST(state: any, list: any) {
+      SET_TAGS_NAV_LIST(state: any, list: any) {
         let tagList = []
         if (list) {
           tagList = [...list]
         } else {
-          tagList = await state.tagsNavList || []
+          tagList = state.tagsNavList || []
         }
         if (tagList[0] && tagList[0].name !== consoleHomeName) tagList.shift()
         const homeTagIndex = tagList.findIndex((item: any) => item.name === consoleHomeName)
@@ -105,11 +105,12 @@ export default {
         commit('SET_TAGS_NAV_LIST', list);
         Promise.resolve(list);
       },
-
+      // 添加标签
       addTag({ commit }: any, data: any) {
         commit('ADD_TAG', data);
         Promise.resolve(data);
       },
+      // 关闭标签
       closeTag({ commit }: any, route: any) {
         commit('CLOSE_TAG', route);
         Promise.resolve(route);

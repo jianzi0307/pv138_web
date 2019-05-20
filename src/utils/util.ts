@@ -1,7 +1,7 @@
 import { consoleHomeName } from '@/config';
 
 class Util {
-
+  
   public static getRouteTitleHandled(route: any) {
     const router = { ...route }
     const meta = { ...route.meta }

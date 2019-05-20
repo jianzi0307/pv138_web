@@ -153,9 +153,9 @@ class Console extends Vue {
     document.body.style.height = document.documentElement.scrollHeight + 'px';
     self.setTagNavList();
 
-    const { name, params, query, meta } = this.$route;
+    const { name, params, query, meta, path } = this.$route;
     self.addTag({
-      route: { name, params, query, meta }
+      route: { name, params, query, meta, path }
     });
     // 如果当前打开页面不在标签栏中，跳到homeName页
     if (!self.tagList.find((item: any) => item.name === this.$route.name)) {
@@ -167,7 +167,6 @@ class Console extends Vue {
 
   @Watch('$route')
   public routeChanged(newRoute: any, oldVal: string) {
-    console.log(newRoute, '<<<<');
     const self: any = this;
     const { name, query, params, meta } = newRoute;
     self.addTag({
