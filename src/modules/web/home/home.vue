@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="nav-opts">
-            <Button
+           <!-- <Button
               class="btn"
               type="default"
               shape="circle"
@@ -57,7 +57,7 @@
               shape="circle"
               size="large"
               @click="toRegisterHandler"
-            >注册</Button>
+            >注册</Button> -->
           </div>
         </Menu>
       </div>

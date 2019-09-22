@@ -8,8 +8,8 @@ export default [
       {
         path: '/',
         name: 'web.home',
-        // component: () => import('@/modules/web/home/home.vue')
-        component: () => import('@/modules/web/home/welcome.vue')
+        component: () => import('@/modules/web/home/home.vue')
+        // component: () => import('@/modules/web/home/welcome.vue')
       },
       {
         path: 'product/mass',
